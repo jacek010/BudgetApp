@@ -157,7 +157,7 @@ const OperationsTable = () => {
 
     return (
         <>
-            <OperationModal active={activeModal} handleModal={handleModal} token={token} id={id} setErrorMessage={setErrorMessage} />
+            
 
             <div className="box">
 
@@ -219,7 +219,8 @@ const OperationsTable = () => {
                 </div>
 
             </div>
-
+            
+            <OperationModal active={activeModal} handleModal={handleModal} token={token} id={id} setErrorMessage={setErrorMessage} />
             <button className='button is-fullwidth mb-5 is-primary'
                 onClick={() => setActiveModal(true)}>
                 Add operation

@@ -10,6 +10,8 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
     const [categories, setCategories] = useState(null);
     const [categoryId, setCategoryId] = useState("");
 
+    const [incomeExpense, setIncomeExpense] = useState("income");
+
     const [reloadCategory, setReloadCategory] = useState(false);
 
     useEffect(() => {
@@ -23,6 +25,10 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
     useEffect(() => {
         selectCategory();
     },[reloadCategory]);
+
+    useEffect(() => {
+        cleanFormData();
+    },[handleModal])
 
     const changeActiveCategory =(catId)=>{
         setCategoryId(catId);
@@ -60,12 +66,28 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
         } else {
             const data = await response.json();
             setName(data.operation_name);
-            setValue(data.operation_value);
+            if(data.operation_value<0){
+                setValue(-1*data.operation_value);
+                setIncomeExpense("expense");
+            } else{
+                setValue(data.operation_value);
+                setIncomeExpense("income");
+            }
+            
             setDate(data.operation_date);
             setSubcategoryId(data.subcategory_id);
             setReloadCategory(!reloadCategory);
         }
         
+    };
+
+    const getRealValue = ()=>{
+        if(incomeExpense==="income"){
+            return parseFloat(value);
+        } else if(incomeExpense==="expense"){
+            return -1*parseFloat(value);
+        }
+
     };
 
     const getCategoriesAndSubcategories = async() => {
@@ -105,7 +127,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ operation_name: name, 
-                operation_value: parseFloat(value), 
+                operation_value: getRealValue(), 
                 operation_date: date, 
                 subcategory_id: parseInt(subcategoryId, 10)
             }),
@@ -130,7 +152,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ operation_name: name, 
-                operation_value: parseFloat(value), 
+                operation_value: getRealValue(), 
                 operation_date: date, 
                 subcategory_id: parseInt(subcategoryId, 10)
             }),
@@ -164,8 +186,20 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
                         </div>
                         <div className="field">
                             <label className="label">Value</label>
-                            <div className="control">
-                                <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => setValue(e.target.value)} />
+                            <div className="columns">
+                                <div className="column">
+                                    <div className="control">
+                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => setValue(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div className="column">
+                                    <select className={`button is-fullwidth is-light ${incomeExpense === "income" ? ("is-success") : ("is-danger")}`} 
+                                        value={incomeExpense} 
+                                        onChange={e => setIncomeExpense(e.target.value)}  >
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div className="field">

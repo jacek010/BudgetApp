@@ -13,6 +13,8 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
     const [categories, setCategories] = useState(null);
     const [categoryId, setCategoryId] = useState("");
 
+    const [incomeExpense, setIncomeExpense] = useState("income");
+
     const [reloadCategory, setReloadCategory] = useState(false);
 
     useEffect(() => {
@@ -26,6 +28,10 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
     useEffect(() => {
         selectCategory();
     },[reloadCategory]);
+
+    useEffect(() => {
+        cleanFormData();
+    },[handleModal])
 
     const changeActiveCategory =(catId)=>{
         setCategoryId(catId);
@@ -64,7 +70,13 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
             const data = await response.json();
             setName(data.reminder_name);
             setDescription(data.reminder_description);
-            setValue(data.reminder_value);
+            if(data.reminder_value<0){
+                setValue(-1*data.reminder_value);
+                setIncomeExpense("expense");
+            } else{
+                setValue(data.reminder_value);
+                setIncomeExpense("income");
+            }
             setDate(data.reminder_date);
             setRepeatQuantity(data.reminder_repeat_quantity);
             setRepeatScale(data.reminder_repeat_scale);
@@ -94,6 +106,15 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         }
     };
 
+    const getRealValue = ()=>{
+        if(incomeExpense==="income"){
+            return parseFloat(value);
+        } else if(incomeExpense==="expense"){
+            return -1*parseFloat(value);
+        }
+
+    };
+
     const cleanFormData  =()=>{
         setName("");
         setDescription("");
@@ -118,7 +139,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
             body: JSON.stringify({ 
                 reminder_name: name,
                 reminder_description: description,
-                reminder_value: parseFloat(value), 
+                reminder_value: getRealValue(), 
                 reminder_date: date, 
                 subcategory_id: parseInt(subcategoryId, 10),
                 reminder_repeat_quantity: parseInt(repeatQuantity, 10),
@@ -147,7 +168,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
             body: JSON.stringify({ 
                 reminder_name: name,
                 reminder_description: description,
-                reminder_value: parseFloat(value), 
+                reminder_value: getRealValue(), 
                 reminder_date: date, 
                 subcategory_id: parseInt(subcategoryId, 10),
                 reminder_repeat_quantity: parseInt(repeatQuantity, 10),
@@ -189,8 +210,20 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                         </div>
                         <div className="field">
                             <label className="label">Value</label>
-                            <div className="control">
-                                <input type="text" className="input" required placeholder="Enter reminder value" value={value} onChange={(e) => setValue(e.target.value)} />
+                            <div className="columns">
+                                <div className="column">
+                                    <div className="control">
+                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => setValue(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div className="column">
+                                    <select className={`button is-fullwidth is-light ${incomeExpense === "income" ? ("is-success") : ("is-danger")}`} 
+                                        value={incomeExpense} 
+                                        onChange={e => setIncomeExpense(e.target.value)}  >
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div className="field">
