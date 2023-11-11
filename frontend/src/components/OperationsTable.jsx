@@ -199,7 +199,7 @@ const OperationsTable = () => {
                             <p className='title is-5 has-text-success'>By categories</p>
                             {Object.entries(incomesSums).map(([category_name, value]) => (
                                 <div key={category_name}>
-                                    {category_name}: {value}
+                                    {category_name}: {value.toFixed(2)}
                                     <progress class={`progress ${categoryColors[category_name]} is-small`} value={`${parseFloat(value)}`} max={`${parseFloat(incomeSum)}`}></progress>
                                 </div>
                             ))}
@@ -210,7 +210,7 @@ const OperationsTable = () => {
                             <p className='title is-5 has-text-danger'>By categories</p>
                             {Object.entries(expensesSums).map(([category_name, value]) => (
                                 <div key={category_name}>
-                                    {category_name}: {parseFloat(-value)}
+                                    {category_name}: {parseFloat(-value).toFixed(2)}
                                     <progress class={`progress ${categoryColors[category_name]}_inverted is-small`} value={`${parseFloat((-expensesSum) + value)}`} max={`${parseFloat(-expensesSum)}`}></progress>
                                 </div>
                             ))}
