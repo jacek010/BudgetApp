@@ -59,6 +59,7 @@ const Header = ({ title, changeCurrentTab}) => {
                             <h1 className="title is-3">Welcome {userName} {userSurname}</h1>
                             <br></br>
                             <div className="columns">
+                                {budgetId? (<>
                                 <div className="column is-2">
                                     <button className="button is-success is-fullwidth" onClick={()=>changeCurrentTab('BudgetDetails')}>
                                         Budgets details
@@ -79,16 +80,17 @@ const Header = ({ title, changeCurrentTab}) => {
                                         Payment reminders
                                     </button>
                                 </div>
+                                
                                 <div className="column is-2">
                                     <button className="button is-warning is-fullwidth" onClick={()=>changeCurrentTab('UserDetails')}>
                                         User details
                                     </button>
                                 </div>
+                                </>):(<></>)}
                                 <div className="column is-1">
                                     <button className="button is-danger"  onClick={handleLogout}>Logout</button>
                                 </div>
                             </div>
-                            
                         </>
                     )
                 ):(
