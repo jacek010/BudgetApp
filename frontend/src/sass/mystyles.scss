@@ -1,0 +1,199 @@
+@charset "utf-8";
+@import "../../node_modules/bulma/bulma.sass";
+@import "bulma/sass/utilities/_all";
+
+//Budget balance progress bar style green-red
+.progress.is-green_red::-webkit-progress-value {
+   background-color: $green;
+}
+ 
+.progress.is-green_red::-moz-progress-value {
+    background-color: $green;
+ }
+ 
+.progress.is-green_red::-ms-fill {
+   background-color: $green;
+}
+.progress.is-green_red::-webkit-progress-bar {
+   background-color: $red
+}
+ 
+.progress.is-green_red::-moz-progress-bar {
+   background-color: $red
+}
+ 
+.progress.is-green_red::-ms-fill {
+    background-color: $red
+}
+
+//-------------------------------
+//EXPENSE PROGRESS BAR BY COLOR CATEGORIES
+
+// is-warning
+.progress.is-warning_inverted::-webkit-progress-value {
+   background-color: $border-light;
+}
+ 
+.progress.is-warning_inverted::-moz-progress-value {
+    background-color: $border-light;
+ }
+ 
+.progress.is-warning_inverted::-ms-fill {
+   background-color: $border-light;
+}
+.progress.is-warning_inverted::-webkit-progress-bar {
+   background-color: $yellow
+}
+ 
+.progress.is-warning_inverted::-moz-progress-bar {
+   background-color: $yellow
+}
+ 
+.progress.is-warning_inverted::-ms-fill {
+    background-color: $yellow
+}
+
+// is-black
+.progress.is-black_inverted::-webkit-progress-value {
+   background-color: $border-light;
+}
+ 
+.progress.is-black_inverted::-moz-progress-value {
+    background-color: $border-light;
+ }
+ 
+.progress.is-black_inverted::-ms-fill {
+   background-color: $border-light;
+}
+.progress.is-black_inverted::-webkit-progress-bar {
+   background-color: $black
+}
+ 
+.progress.is-black_inverted::-moz-progress-bar {
+   background-color: $black
+}
+ 
+.progress.is-black_inverted::-ms-fill {
+    background-color: $black
+}
+
+// is-link
+.progress.is-link_inverted::-webkit-progress-value {
+   background-color: $border-light;
+}
+ 
+.progress.is-link_inverted::-moz-progress-value {
+    background-color: $border-light;
+ }
+ 
+.progress.is-link_inverted::-ms-fill {
+   background-color: $border-light;
+}
+.progress.is-link_inverted::-webkit-progress-bar {
+   background-color: $blue
+}
+ 
+.progress.is-link_inverted::-moz-progress-bar {
+   background-color: $blue
+}
+ 
+.progress.is-link_inverted::-ms-fill {
+    background-color: $blue
+}
+ 
+// is-primary
+.progress.is-primary_inverted::-webkit-progress-value {
+   background-color: $border-light;
+}
+ 
+.progress.is-primary_inverted::-moz-progress-value {
+    background-color: $border-light;
+ }
+ 
+.progress.is-primary_inverted::-ms-fill {
+   background-color: $border-light;
+}
+.progress.is-primary_inverted::-webkit-progress-bar {
+   background-color: $turquoise
+}
+ 
+.progress.is-primary_inverted::-moz-progress-bar {
+   background-color: $turquoise
+}
+ 
+.progress.is-primary_inverted::-ms-fill {
+    background-color: $turquoise
+}
+
+// is-danger
+.progress.is-danger_inverted::-webkit-progress-value {
+   background-color: $border-light;
+}
+ 
+.progress.is-danger_inverted::-moz-progress-value {
+    background-color: $border-light;
+ }
+ 
+.progress.is-danger_inverted::-ms-fill {
+   background-color: $border-light;
+}
+.progress.is-danger_inverted::-webkit-progress-bar {
+   background-color: $red
+}
+ 
+.progress.is-danger_inverted::-moz-progress-bar {
+   background-color: $red
+}
+ 
+.progress.is-danger_inverted::-ms-fill {
+    background-color: $red
+}
+
+// is-info
+.progress.is-info_inverted::-webkit-progress-value {
+   background-color: $border-light;
+}
+ 
+.progress.is-info_inverted::-moz-progress-value {
+    background-color: $border-light;
+ }
+ 
+.progress.is-info_inverted::-ms-fill {
+   background-color: $border-light;
+}
+.progress.is-info_inverted::-webkit-progress-bar {
+   background-color: $cyan
+}
+ 
+.progress.is-info_inverted::-moz-progress-bar {
+   background-color: $cyan
+}
+ 
+.progress.is-info_inverted::-ms-fill {
+    background-color: $cyan
+}
+
+
+// is-success
+.progress.is-success_inverted::-webkit-progress-value {
+   background-color: $border-light;
+}
+ 
+.progress.is-success_inverted::-moz-progress-value {
+    background-color: $border-light;
+ }
+ 
+.progress.is-success_inverted::-ms-fill {
+   background-color: $border-light;
+}
+.progress.is-success_inverted::-webkit-progress-bar {
+   background-color: $green
+}
+
+.progress.is-success_inverted::-moz-progress-bar {
+   background-color: $green
+}
+ 
+.progress.is-success_inverted::-ms-fill {
+    background-color: $green
+}
