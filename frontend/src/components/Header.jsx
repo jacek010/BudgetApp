@@ -9,8 +9,6 @@ const Header = ({ title, changeCurrentTab}) => {
 
     const {reload, triggerReload} = useContext(ReloadContext);
 
-    const [loggedTitle, setLoggedTitle] = useState('');
-    const [budgetInfo, setBudgetInfo] = useState('');
     const [userName, setUserName] = useState('');
     const [userSurname, setUserSurname] = useState('');
     const [budgetId, setBudgetId] = useState('');
@@ -39,8 +37,6 @@ const Header = ({ title, changeCurrentTab}) => {
             setUserName(data.user_name);
             setUserSurname(data.user_surname);
             setBudgetId(data.budget_id);
-            setLoggedTitle("Welcome " + userName +" "+ userSurname);
-            setBudgetInfo("Your's budget ID: " + budgetId);
             setLoading(false)
           })
           .catch(error => {
@@ -60,7 +56,7 @@ const Header = ({ title, changeCurrentTab}) => {
                         <progress class="progress is-large" max="100"></progress>
                     ) : (
                         <>
-                            <h1 className="title is-3">{loggedTitle}</h1>
+                            <h1 className="title is-3">Welcome {userName} {userSurname}</h1>
                             <br></br>
                             <div className="columns">
                                 <div className="column is-2">
