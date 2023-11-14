@@ -161,8 +161,6 @@ const OperationsTable = () => {
 
     return (
         <>
-
-
             <div className="box">
 
                 <div className="columns">
