@@ -89,6 +89,20 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
         }
 
     };
+    
+    const checkValue = (val)=>{
+        if(val && val !="-"){
+            let parsedVal = parseFloat(val);
+            if(parsedVal<0){
+                setValue(-1*parsedVal);
+                setIncomeExpense("expense");
+            } else{
+                setValue(parsedVal);
+            }
+        }else {
+            setValue(val);
+        }
+    };
 
     const getCategoriesAndSubcategories = async() => {
         const requestOptions = {
@@ -189,7 +203,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
                             <div className="columns">
                                 <div className="column">
                                     <div className="control">
-                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => setValue(e.target.value)} />
+                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => checkValue(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="column">
