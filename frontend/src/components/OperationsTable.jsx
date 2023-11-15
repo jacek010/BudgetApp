@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import moment from 'moment';
 
+import { Line } from 'react-chartjs-2';
+
 
 
 import { ReloadContext } from '../context/ReloadContext';
@@ -9,6 +11,11 @@ import ErrorMessage from "./ErrorMessage";
 import { UserContext } from '../context/UserContext';
 import OperationModal from './OperationModal';
 
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
+
+
 const OperationsTable = () => {
     const currentDate = moment();
     const firstDayCurrentMonth = currentDate.clone().startOf('month').format('YYYY-MM-DD');
@@ -16,6 +23,8 @@ const OperationsTable = () => {
 
     const [token] = useContext(UserContext);
     const { reload, triggerReload } = useContext(ReloadContext);
+    const [chartLoaded, setChartLoaded] = useState(false);
+
     const [operations, setOperations] = useState(null);
     const [filteredOperations, setFilteredOperations] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
@@ -36,6 +45,8 @@ const OperationsTable = () => {
 
     const [categoryColors, setCategoryColors] = useState({});
 
+    const [dataChart, setDataChart] = useState({});
+
     let tempCategoryColors = {};
 
 
@@ -50,13 +61,22 @@ const OperationsTable = () => {
         let incomeSums = [];
         let expenseSums = [];
 
+        let valueSumsPerDay={};
+        let cumulativeSum = 0;
 
-        let filteredOperations = operations.filter(operation => {
+
+        let operationsWithFilters = operations.sort((a, b) => new Date(a.operation_date) - new Date(b.operation_date))
+            .filter(operation => {
             const operationDate = operation.operation_date
             if (
                 (!fromDate || operationDate >= fromDate)
                 && (!toDate || operationDate <= toDate)
                 && (!incomeExpense || operation.operation_value > 0 === (incomeExpense === "income"))) {
+                    if(!valueSumsPerDay[operationDate]){
+                        valueSumsPerDay[operationDate] = 0;
+                    }
+                    cumulativeSum += parseFloat(operation.operation_value);
+                    valueSumsPerDay[operationDate] = cumulativeSum;
                 if (operation.operation_value > 0) {
                     if (!incomeSums[operation.category_name]) {
                         incomeSums[operation.category_name] = 0;
@@ -79,12 +99,32 @@ const OperationsTable = () => {
             }
 
         });
+
+        setFilteredOperations(operationsWithFilters);
+
         setTotalSum(tempIncomeSum - tempExpensesSum.toFixed(2))
         setIncomeSum(tempIncomeSum.toFixed(2));
         setExpensesSum(tempExpensesSum.toFixed(2));
         setIncomesSums(incomeSums);
         setExpensesSums(expenseSums);
         setCategoryColors(tempCategoryColors);
+
+        setChartLoaded(false);
+        if(valueSumsPerDay){
+            let chartData = {
+                labels: Object.keys(valueSumsPerDay),
+                datasets: [{
+                label: 'Budget balance',
+                backgroundColor: 'red',
+                borderColor: 'turquoise',
+                data: Object.values(valueSumsPerDay)
+                }]
+            };
+
+            setDataChart(chartData);
+            setChartLoaded(true);
+        }
+
 
         return filteredOperations;
 
@@ -98,7 +138,7 @@ const OperationsTable = () => {
             setIncomesSums({});
             setExpensesSums({});
 
-            setFilteredOperations(filterOperations());
+            filterOperations();
         }
     }, [fromDate, toDate, incomeExpense, operations, filterOperations]);
 
@@ -219,7 +259,10 @@ const OperationsTable = () => {
                         </div>
                     </div>
                 </div>
-
+                {chartLoaded ?(
+                    <Line data={dataChart}/>
+                ) : (<></>)}
+                
             </div>
 
             <OperationModal active={activeModal} handleModal={handleModal} token={token} id={id} setErrorMessage={setErrorMessage} />
