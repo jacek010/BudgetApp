@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import './sass/mystyles.scss';
 
+import './language/LangConf';
+
 import Register from './components/Register';
 import Login from './components/Login';
 import Header from './components/Header';

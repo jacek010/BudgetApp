@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../context/UserContext";
 import { ReloadContext } from "../context/ReloadContext";
+import { useTranslation } from "react-i18next";
 
 const Header = ({ title, changeCurrentTab}) => {
+    const { i18n, t } = useTranslation();
+
     const [token, setToken] = useContext(UserContext);
     const [loading, setLoading] = useState(false);
 
@@ -56,7 +59,7 @@ const Header = ({ title, changeCurrentTab}) => {
                         <progress class="progress is-large" max="100"></progress>
                     ) : (
                         <>
-                            <h1 className="title is-3">Welcome {userName} {userSurname}</h1>
+                            <h1 className="title is-3">{t("header_welcome")} {userName} {userSurname}</h1>
                             <br></br>
                             <div className="columns">
                                 {budgetId? (<>
