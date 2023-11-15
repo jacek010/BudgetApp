@@ -3,7 +3,6 @@ import moment from 'moment';
 
 import { Line } from 'react-chartjs-2';
 
-import LineChart from './LineChart';
 
 
 import { ReloadContext } from '../context/ReloadContext';
