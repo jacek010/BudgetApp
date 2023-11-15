@@ -19,42 +19,42 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
 
     useEffect(() => {
         getCategoriesAndSubcategories();
-        if(id){
+        if (id) {
             getReminder();
         }
         selectCategory();
-    },[id, token, active]);
+    }, [id, token, active]);
 
     useEffect(() => {
         selectCategory();
-    },[reloadCategory]);
+    }, [reloadCategory]);
 
     useEffect(() => {
         cleanFormData();
-    },[handleModal])
+    }, [handleModal])
 
-    const changeActiveCategory =(catId)=>{
+    const changeActiveCategory = (catId) => {
         setCategoryId(catId);
-        if (subcategories){
+        if (subcategories) {
             const firstSubcategoryId = subcategories.find(subcategory => subcategory.category_id == catId).subcategory_id;
-            if(firstSubcategoryId){
+            if (firstSubcategoryId) {
                 setSubcategoryId(firstSubcategoryId);
-            } 
+            }
         }
     };
 
     const selectCategory = () => {
-        if(subcategories&&subcategoryId){
+        if (subcategories && subcategoryId) {
             const matchingSubcategory = subcategories.find(subcategory => subcategory.subcategory_id === subcategoryId);
             if (matchingSubcategory) {
-                if (categoryId!=matchingSubcategory.category_id){
+                if (categoryId != matchingSubcategory.category_id) {
                     setCategoryId(matchingSubcategory.category_id);
                 }
             }
         }
     };
 
-    const getReminder = async() => {
+    const getReminder = async () => {
         const requestOptions = {
             method: "GET",
             headers: {
@@ -63,17 +63,17 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
             },
         };
         const response = await fetch(`/api/reminders/${id}`, requestOptions);
-        
-        if(!response.ok) {
+
+        if (!response.ok) {
             setErrorMessage("Could not get the reminder");
         } else {
             const data = await response.json();
             setName(data.reminder_name);
             setDescription(data.reminder_description);
-            if(data.reminder_value<0){
-                setValue(-1*data.reminder_value);
+            if (data.reminder_value < 0) {
+                setValue(-1 * data.reminder_value);
                 setIncomeExpense("expense");
-            } else{
+            } else {
                 setValue(data.reminder_value);
                 setIncomeExpense("income");
             }
@@ -84,20 +84,20 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
             setSubcategoryId(data.subcategory_id);
             setReloadCategory(!reloadCategory);
         }
-        
+
     };
 
-    const getCategoriesAndSubcategories = async() => {
+    const getCategoriesAndSubcategories = async () => {
         const requestOptions = {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'accept': 'application/json',
-              },
+            },
         };
         const response = await fetch(`/api/categories_subcategories`, requestOptions);
-        
-        if(!response.ok) {
+
+        if (!response.ok) {
             setErrorMessage("Could not get the categories or subcategories");
         } else {
             const data = await response.json();
@@ -106,16 +106,29 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         }
     };
 
-    const getRealValue = ()=>{
-        if(incomeExpense==="income"){
+    const getRealValue = () => {
+        if (incomeExpense === "income") {
             return parseFloat(value);
-        } else if(incomeExpense==="expense"){
-            return -1*parseFloat(value);
+        } else if (incomeExpense === "expense") {
+            return -1 * parseFloat(value);
         }
-
     };
 
-    const cleanFormData  =()=>{
+    const checkValue = (val) => {
+        if (val && val != "-") {
+            let parsedVal = parseFloat(val);
+            if (parsedVal < 0) {
+                setValue(-1 * parsedVal);
+                setIncomeExpense("expense");
+            } else {
+                setValue(parsedVal);
+            }
+        } else {
+            setValue(val);
+        }
+    };
+
+    const cleanFormData = () => {
         setName("");
         setDescription("");
         setValue("");
@@ -136,11 +149,11 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                 'accept': 'application/json',
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 reminder_name: name,
                 reminder_description: description,
-                reminder_value: getRealValue(), 
-                reminder_date: date, 
+                reminder_value: getRealValue(),
+                reminder_date: date,
                 subcategory_id: parseInt(subcategoryId, 10),
                 reminder_repeat_quantity: parseInt(repeatQuantity, 10),
                 reminder_repeat_scale: repeatScale
@@ -148,7 +161,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         };
         const response = await fetch("/api/reminders", requestOptions);
 
-        if(!response.ok) {
+        if (!response.ok) {
             setErrorMessage("Something went wrong when creating reminder");
         } else {
             cleanFormData();
@@ -165,11 +178,11 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                 'accept': 'application/json',
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 reminder_name: name,
                 reminder_description: description,
-                reminder_value: getRealValue(), 
-                reminder_date: date, 
+                reminder_value: getRealValue(),
+                reminder_date: date,
                 subcategory_id: parseInt(subcategoryId, 10),
                 reminder_repeat_quantity: parseInt(repeatQuantity, 10),
                 reminder_repeat_scale: repeatScale
@@ -177,7 +190,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         };
         const response = await fetch(`/api/reminders/${id}`, requestOptions);
 
-        if(!response.ok) {
+        if (!response.ok) {
             setErrorMessage("Something went wrong when updating reminder");
         } else {
             cleanFormData();
@@ -213,12 +226,12 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                             <div className="columns">
                                 <div className="column">
                                     <div className="control">
-                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => setValue(e.target.value)} />
+                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => checkValue(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="column">
-                                    <select className={`button is-fullwidth is-light ${incomeExpense === "income" ? ("is-success") : ("is-danger")}`} 
-                                        value={incomeExpense} 
+                                    <select className={`button is-fullwidth is-light ${incomeExpense === "income" ? ("is-success") : ("is-danger")}`}
+                                        value={incomeExpense}
                                         onChange={e => setIncomeExpense(e.target.value)}  >
                                         <option value="income">Income</option>
                                         <option value="expense">Expense</option>
@@ -253,11 +266,11 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                             <label className="label">Category</label>
                             <div className="control">
                                 <select className="input" required value={categoryId} onChange={(e) => changeActiveCategory(e.target.value)}>
-                                    {categories ?(categories.map(category => (
+                                    {categories ? (categories.map(category => (
                                         <option key={category.category_id} value={category.category_id}>
                                             <span className="title">{category.category_name}</span>
                                         </option>
-                                    ))):(
+                                    ))) : (
                                         <progress class="progress is-large" max="100"></progress>
                                     )}
                                 </select>
@@ -267,13 +280,13 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                             <label className="label">Subcategory</label>
                             <div className="control">
                                 <select className="input" required value={subcategoryId} onChange={(e) => setSubcategoryId(e.target.value)}>
-                                    {subcategories ?(subcategories.map(subcategory => (
-                                        subcategory.category_id == categoryId ?(
+                                    {subcategories ? (subcategories.map(subcategory => (
+                                        subcategory.category_id == categoryId ? (
                                             <option key={subcategory.subcategory_id} value={subcategory.subcategory_id}>
                                                 <span className="title">{subcategory.subcategory_name}</span>
                                             </option>
-                                        ):(<></>)
-                                    ))):(
+                                        ) : (<></>)
+                                    ))) : (
                                         <p>loading</p>
                                     )}
                                 </select>

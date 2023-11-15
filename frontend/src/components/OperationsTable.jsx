@@ -17,6 +17,10 @@ Chart.register(...registerables);
 
 
 const OperationsTable = () => {
+    const currentDate = moment();
+    const firstDayCurrentMonth = currentDate.clone().startOf('month').format('YYYY-MM-DD');
+    const firstDayNextMonth = currentDate.clone().add(1,'month').startOf('month').format('YYYY-MM-DD');
+
     const [token] = useContext(UserContext);
     const { reload, triggerReload } = useContext(ReloadContext);
     const [chartLoaded, setChartLoaded] = useState(false);
@@ -28,8 +32,8 @@ const OperationsTable = () => {
     const [activeModal, setActiveModal] = useState(false);
     const [id, setId] = useState(null);
 
-    const [fromDate, setFromDate] = useState("");
-    const [toDate, setToDate] = useState("");
+    const [fromDate, setFromDate] = useState(firstDayCurrentMonth);
+    const [toDate, setToDate] = useState(firstDayNextMonth);
     const [incomeExpense, setIncomeExpense] = useState("");
 
     const [incomeSum, setIncomeSum] = useState(0);
@@ -144,7 +148,7 @@ const OperationsTable = () => {
         setIncomeExpense("");
     };
 
-    
+
 
 
     const handleDelete = async (id) => {
@@ -197,8 +201,6 @@ const OperationsTable = () => {
 
     return (
         <>
-            
-
             <div className="box">
 
                 <div className="columns">
@@ -262,7 +264,7 @@ const OperationsTable = () => {
                 ) : (<></>)}
                 
             </div>
-            
+
             <OperationModal active={activeModal} handleModal={handleModal} token={token} id={id} setErrorMessage={setErrorMessage} />
             <button className='button is-fullwidth mb-5 is-primary'
                 onClick={() => setActiveModal(true)}>
