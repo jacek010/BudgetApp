@@ -1,5 +1,82 @@
 {
     "header_welcome": "Welcome",
+    "header_budget_details": "Budget details",
+    "header_categories": "Categories",
+    "header_budget_summary": "Budget summary",
+    "header_payment_reminders": "Payment reminders",
+    "header_user_details": "User details",
+    "header_logout": "Logout",
+
+
     "logged_title": "Budget App",
-    "budget_summary": "budget sumary"
+    "budget_name": "Budget name",
+    "budget_description": "Budget description",
+    "password":"Password",
+    "budget_password_subtitle":"Press button to reveal",
+    "budget_password_hide":"Hide",
+    "budget_password_show":"Show",
+    "budget_password_hiden":"Password hiden",
+    "budget_members": "Members",
+    "budget_members_failure":"Unable to load budget members",
+    "budget_change_details": "Change details",
+
+    "error_udpate_budget":"Something went wrong when updating budget",
+    "error_password_not_matching":"Ensure that the password match and greater than 5 characters",
+    "budget_modal_edit_budget_details":"Edit budget details",
+    "budget_modal_budget_password":"Budget password",
+    "budget_modal_repeat_budget_password":"Repeat budget password",
+
+    "button_update":"Update",
+    "button_delete":"Delete",
+    "button_cancel":"Cancel",
+    "button_add":"Add",
+    "button_join":"Join",
+    "button_create_budget":"Create budget",
+    "button_login":"Login",
+
+    "budget_summary":"summary",
+    "budget_summary_actual_amount":"Actual budget amount",
+
+    "categories_add_subcategory":"Add subcategory",
+    "categories_food":"Food",
+    "categories_entertainment":"Entertainment",
+    "categories_transport":"Transport",
+    "categories_fees": "Fees",
+    "categories_studies": "Studies",
+    "categories_inwestitions": "Investitions",
+    "categories_work": "Work",
+
+    "error_homepage_selector": "Something wrong happens during switching the tabs. Please reload",
+
+    "new_budget_create_title":"Create new fresh budget",
+    "existing_budget_join_title":"Join to an existing budget",
+    "budget_id":"Budget id",
+    "budget_id_placeholder":"Enter budget id",
+    "password_placeholder":"Enter password",
+    "budget_name_placeholder":"Enter budget name",
+    "budget_description_placeholder":"Enter budget description",
+
+    "email": "Email Address",
+    "email_placeholder":"Enter email",
+
+    "error_get_operation": "Could not get the operation",
+    "error_get_categories": "Could not get the categories or subcategories",
+    "error_create_operation": "Something went wrong when creating operation",
+    "error_update_operation": "Something went wrong when updating operation",
+
+    "operation_modal_title_update": "Update operation",
+    "operation_modal_title_add": "Add operation",
+    "operation_name":"Operation name",
+    "operation_name_placeholder":"Enter peration name",
+    "value":"Value",
+    "value_placeholder":"Enter value",
+    "income": "Income",
+    "expense": "Expense",
+    "date": "Date",
+    "date_placeholder": "Enter date",
+    "category": "Category",
+    "subcategory": "Subcategory"
+
+
+
 }
