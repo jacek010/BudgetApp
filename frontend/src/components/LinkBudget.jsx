@@ -3,8 +3,11 @@ import React, {useState, useEffect, useContext} from "react";
 
 import ErrorMessage from "./ErrorMessage";
 import { UserContext } from '../context/UserContext';
+import { useTranslation } from "react-i18next";
 
 const NewBudget = ()=>{
+    const {i18n, t} = useTranslation();
+
     const[name, setName] = useState("");
     const[description, setDescription] = useState("");
     const[password, setPassword] = useState("");
@@ -41,45 +44,47 @@ const NewBudget = ()=>{
             submitNew();
             window.location.reload();
         } else{
-            setErrorMessage("Ensure that the password match and greater than 5 characters");
+            setErrorMessage(t("error_password_not_matching"));
         }
     };
 
     return(
         <form onSubmit={handleSubmitNew} className="box">
-            <h1 className="title has-text-centered">Create new fresh budget</h1>
+            <h1 className="title has-text-centered">{t("new_budget_create_title")}</h1>
             <div className="field">
-                <label className="label">Budget name</label>
+                <label className="label">{t("budget_name")}</label>
                 <div className="control">
-                    <input type="text" placeholder="Enter budget name" value={name} onChange={(e)=>setName(e.target.value)} className="input" required />
+                    <input type="text" placeholder={t("budget_name_placeholder")} value={name} onChange={(e)=>setName(e.target.value)} className="input" required />
                 </div>
             </div>
             <div className="field">
-                <label className="label">Description</label>
+                <label className="label">{t("budget_description")}</label>
                 <div className="control">
-                    <textarea placeholder="Enter budget name" value={description} onChange={(e)=>setDescription(e.target.value)} className="input" required />
+                    <textarea placeholder={t("budget_description_placeholder")} value={description} onChange={(e)=>setDescription(e.target.value)} className="input" required />
                 </div>
             </div>
             <div className="field">
-                <label className="label">Password</label>
+                <label className="label">{t("budget_modal_budget_password")}</label>
                 <div className="control">
-                    <input type="password" placeholder="Enter password" value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
+                    <input type="password" placeholder={t("password_placeholder")} value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
                 </div>
             </div>
             <div className="field">
-                <label className="label">Confirm password</label>
+                <label className="label">{t("budget_modal_repeat_budget_password")}</label>
                 <div className="control">
-                    <input type="password" placeholder="Enter password" value={confirmationPassword} onChange={(e)=>setConfirmationPassword(e.target.value)} className="input" required />
+                    <input type="password" placeholder={t("password_placeholder")} value={confirmationPassword} onChange={(e)=>setConfirmationPassword(e.target.value)} className="input" required />
                 </div>
             </div>
             <ErrorMessage message={errorMessage}/>
             <br />
-            <button className="button is-primary" type="submit">Create budget</button>
+            <button className="button is-primary" type="submit">{t("button_create_budget")}</button>
         </form>
     );
 };
 
 const ExistingBudget = () =>{
+    const {i18n, t} = useTranslation();
+
     const[id, setId] = useState("");
     const[password, setPassword] = useState("");
     const[errorMessage, setErrorMessage] = useState("");
@@ -115,22 +120,22 @@ const ExistingBudget = () =>{
 
     return(
         <form onSubmit={handleSubmitExisting} className="box">
-            <h1 className="title has-text-centered">Join to an existing budget</h1>
+            <h1 className="title has-text-centered">J{t("existing_budget_join_title")}</h1>
             <div className="field">
-                <label className="label">Budget id</label>
+                <label className="label">{t("budget_id")}</label>
                 <div className="control">
-                    <input type="text" placeholder="Enter budget id" value={id} onChange={(e)=>setId(e.target.value)} className="input" required />
+                    <input type="text" placeholder={t("budget_id_placeholder")} value={id} onChange={(e)=>setId(e.target.value)} className="input" required />
                 </div>
             </div>
             <div className="field">
-                <label className="label">Password</label>
+                <label className="label">{t("budget_password")}</label>
                 <div className="control">
-                    <input type="password" placeholder="Enter password" value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
+                    <input type="password" placeholder={t("password_placeholder")} value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
                 </div>
             </div>
             <ErrorMessage message={errorMessage}/>
             <br />
-            <button className="button is-primary" type="submit">Join</button>
+            <button className="button is-primary" type="submit">{t("button_join")}</button>
         </form>
     );
 };

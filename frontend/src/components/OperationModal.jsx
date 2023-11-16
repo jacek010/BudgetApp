@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 
 
 const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => {
+    const { i18n, t} = useTranslation();
+
     const [name, setName] = useState("");
     const [value, setValue] = useState("");
     const [date, setDate] = useState("");
@@ -62,7 +65,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
         const response = await fetch(`/api/operations/${id}`, requestOptions);
         
         if(!response.ok) {
-            setErrorMessage("Could not get the operation");
+            setErrorMessage(t("error_get_operation"));
         } else {
             const data = await response.json();
             setName(data.operation_name);
@@ -115,7 +118,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
         const response = await fetch(`/api/categories_subcategories`, requestOptions);
         
         if(!response.ok) {
-            setErrorMessage("Could not get the categories or subcategories");
+            setErrorMessage(t("error_get_categories"));
         } else {
             const data = await response.json();
             setCategories(data.categories);
@@ -149,7 +152,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
         const response = await fetch("/api/operations", requestOptions);
 
         if(!response.ok) {
-            setErrorMessage("Something went wrong when creating operation");
+            setErrorMessage(t("error_create_operation"));
         } else {
             cleanFormData();
             handleModal();
@@ -174,7 +177,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
         const response = await fetch(`/api/operations/${id}`, requestOptions);
 
         if(!response.ok) {
-            setErrorMessage("Something went wrong when updating operation");
+            setErrorMessage(t("error_update_operation"));
         } else {
             cleanFormData();
             handleModal();
@@ -187,48 +190,48 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
             <div className="modal-card">
                 <header className="modal-card-head has-background-primary-light">
                     <h1 className="modal-card-title">
-                        {id ? "Update Operation" : "Add Operation"}
+                        {id ? t("operation_modal_title_update") : t("operation_modal_title_add")}
                     </h1>
                 </header>
                 <section className="modal-card-body">
                     <form>
                         <div className="field">
-                            <label className="label">Operation name</label>
+                            <label className="label">{t("operation_name")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter operation name" value={name} onChange={(e) => setName(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("operation_name_placeholder")} value={name} onChange={(e) => setName(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Value</label>
+                            <label className="label">{t("value")}</label>
                             <div className="columns">
                                 <div className="column">
                                     <div className="control">
-                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => checkValue(e.target.value)} />
+                                        <input type="text" className="input" required placeholder={t("value_placeholder")} value={value} onChange={(e) => checkValue(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="column">
                                     <select className={`button is-fullwidth is-light ${incomeExpense === "income" ? ("is-success") : ("is-danger")}`} 
                                         value={incomeExpense} 
                                         onChange={e => setIncomeExpense(e.target.value)}  >
-                                        <option value="income">Income</option>
-                                        <option value="expense">Expense</option>
+                                        <option value="income">{t("income")}</option>
+                                        <option value="expense">{t("expense")}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Date</label>
+                            <label className="label">{t("date")}</label>
                             <div className="control">
-                                <input type="date" className="input" required placeholder="Enter operation date" value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" className="input" required placeholder={t("date_placeholder")} value={date} onChange={(e) => setDate(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Category</label>
+                            <label className="label">{t("category")}</label>
                             <div className="control">
                                 <select className="input" required value={categoryId} onChange={(e) => changeActiveCategory(e.target.value)}>
                                     {categories ?(categories.map(category => (
                                         <option key={category.category_id} value={category.category_id}>
-                                            <span className="title">{category.category_name}</span>
+                                            <span className="title">{t("categories_"+category.category_name)}</span>
                                         </option>
                                     ))):(
                                         <progress class="progress is-large" max="100"></progress>
@@ -237,7 +240,7 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Subcategory</label>
+                            <label className="label">{t("subcategory")}</label>
                             <div className="control">
                                 <select className="input" required value={subcategoryId} onChange={(e) => setSubcategoryId(e.target.value)}>
                                     {subcategories ?(subcategories.map(subcategory => (
@@ -256,11 +259,11 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
                 </section>
                 <footer className="modal-card-foot has-background-primary-light">
                     {id ? (
-                        <button className="button is-info" onClick={handleUpdateOperation}>Update</button>
+                        <button className="button is-info" onClick={handleUpdateOperation}>{t("button_update")}</button>
                     ) : (
-                        <button className="button is-primary" onClick={handleCreateOperation}>Add</button>
+                        <button className="button is-primary" onClick={handleCreateOperation}>{t("button_add")}</button>
                     )}
-                    <button className="button" onClick={handleModal}>Cancel</button>
+                    <button className="button" onClick={handleModal}>{t("button_cancel")}</button>
                 </footer>
             </div>
         </div>

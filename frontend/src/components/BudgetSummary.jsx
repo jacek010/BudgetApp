@@ -3,8 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from '../context/UserContext';
 import { ReloadContext } from "../context/ReloadContext";
 import OperationsTable from "./OperationsTable";
+import { useTranslation } from "react-i18next";
 
 const BudgetSummary = ({budgetId, token})=>{
+    const {i18n, t } = useTranslation();
+
     const {reload, triggerReload} = useContext(ReloadContext);
 
 
@@ -38,14 +41,14 @@ const BudgetSummary = ({budgetId, token})=>{
             <div class="columns">
                 <div class="column is-4">
                     <div className="box ">
-                        <p className="title is-4 has-text-centered ">"{budgetName}" summary</p>
+                        <p className="title is-4 has-text-centered ">"{budgetName}" {t("budget_summary")}</p>
                     </div>
                     
                 </div>
                 <div className="column is-8">
                         <div className="box">
                             <p className={`title is-4 has-text-right ${budgetSum < 0 ? 'has-text-danger' : 'has-text-success'}`}>
-                                Actual budget amount: {budgetSum}
+                                {t("budget_summary_actual_amount")}: {budgetSum}
                             </p>
                         </div>
                     </div>

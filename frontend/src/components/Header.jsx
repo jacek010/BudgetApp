@@ -65,33 +65,35 @@ const Header = ({ title, changeCurrentTab}) => {
                                 {budgetId? (<>
                                 <div className="column is-2">
                                     <button className="button is-success is-fullwidth" onClick={()=>changeCurrentTab('BudgetDetails')}>
-                                        Budgets details
+                                    {t("header_budget_details")}
                                     </button>
                                 </div>
                                 <div className="column is-2">
                                     <button className="button is-info is-fullwidth" onClick={()=>changeCurrentTab('Categories')}>
-                                        Categories
+                                    {t("header_categories")}
                                     </button>
                                 </div>
                                 <div className="column is-2">
                                     <button className="button is-primary is-fullwidth" onClick={()=>changeCurrentTab('BudgetSummary')}>
-                                        Budget summary
+                                    {t("header_budget_summary")}
                                     </button>
                                 </div>
                                 <div className="column is-2">
                                     <button className="button is-link is-fullwidth" onClick={()=>changeCurrentTab('PaymentReminders')}>
-                                        Payment reminders
+                                    {t("header_payment_reminders")}
                                     </button>
                                 </div>
                                 
                                 <div className="column is-2">
                                     <button className="button is-warning is-fullwidth" onClick={()=>changeCurrentTab('UserDetails')}>
-                                        User details
+                                    {t("header_user_details")}
                                     </button>
                                 </div>
                                 </>):(<></>)}
                                 <div className="column is-1">
-                                    <button className="button is-danger"  onClick={handleLogout}>Logout</button>
+                                    <button className="button is-danger"  onClick={handleLogout}>
+                                    {t("header_logout")}
+                                    </button>
                                 </div>
                             </div>
                         </>

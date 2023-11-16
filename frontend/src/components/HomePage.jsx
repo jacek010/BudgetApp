@@ -8,8 +8,12 @@ import BudgetDetails from "./BudgetDetails";
 import Categories from "./Categories";
 import Reminders from "./Reminders";
 import UserDetails from "./UserDetails";
+import { useTranslation } from "react-i18next";
+import ErrorMessage from "./ErrorMessage";
 
 const HomePage = ({currentTab})=>{
+    const {i18n, t} = useTranslation();
+
     const [budgetId, setBudgetId] = useState('');
     const [token] = useContext(UserContext);
     
@@ -40,7 +44,7 @@ const HomePage = ({currentTab})=>{
         case 'UserDetails':
           return <UserDetails token={token}/>;
         default:
-          return <p>Problem</p>;
+          return <ErrorMessage message={t("error_homepage_selector")}/>;
       }
   };
 
