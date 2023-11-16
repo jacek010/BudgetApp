@@ -12,6 +12,7 @@
     "budget_name": "Budget name",
     "budget_description": "Budget description",
     "password":"Password",
+    "password_repeat":"Repeat password",
     "budget_password_subtitle":"Press button to reveal",
     "budget_password_hide":"Hide",
     "budget_password_show":"Show",
@@ -24,7 +25,7 @@
     "error_password_not_matching":"Ensure that the password match and greater than 5 characters",
     "budget_modal_edit_budget_details":"Edit budget details",
     "budget_modal_budget_password":"Budget password",
-    "budget_modal_repeat_budget_password":"Repeat budget password",
+    
 
     "button_update":"Update",
     "button_delete":"Delete",
@@ -35,6 +36,10 @@
     "button_login":"Login",
     "button_reset":"Reset",
     "button_add_operation":"Add operation",
+    "button_register":"Register",
+    "button_add_reminder":"Add reminder",
+    "button_done":"Done",
+    "button_edit":"Edit",
 
     "budget_summary":"summary",
     "budget_summary_actual_amount":"Actual budget amount",
@@ -75,6 +80,14 @@
     "error_create_operation": "Something went wrong when creating operation",
     "error_update_operation": "Something went wrong when updating operation",
     "error_delete_operation": "Something went wrong when deleting operation",
+    "error_get_reminders":"Something went wrong. Couldn't load the reminders",
+    "error_get_reminder":"Could not get the reminder",
+    "error_create_reminder":"Something went wrong when creating reminder",
+    "error_update_reminder":"Something went wrong when updating reminder",
+    "error_done_reminder":"Something went wrong. Couldn't done reminder",
+    "error_cancel_reminder":"Something went wrong. Couldn't cancel reminder",
+    "error_add_subcategory":"Something went wrong. Couldn't add subcategory",
+    
 
     "operation_modal_title_update": "Update operation",
     "operation_modal_title_add": "Add operation",
@@ -90,8 +103,33 @@
     "category": "Category",
     "subcategory": "Subcategory",
     "user":"User",
-    "actions": "Actions"
+    "actions": "Actions",
 
+    "register_title": "Register",
+    "name": "Name",
+    "name_placeholder": "Enter name",
+    "surname": "Surname",
+    "surname_placeholder": "Enter surname",
 
+    "reminder_modal_title_update": "Update reminder",
+    "reminder_modal_title_add": "Add reminder",
+
+    "reminder_name": "Reminder name",
+    "reminder_name_placeholder": "Enter reminder name",
+    "reminder_description":"Reminder description",
+    "reminder_description_placeholder":"Enter reminder description",
+    "repeat_after": "Repeat after",
+    "repeat_cycle": "Repeat cycle",
+    "days": "Days",
+    "months":"Months",
+    "years": "Years",
+
+    "description":"Description",
+
+    "subcategory_modal_title": "Add subcategory to ",
+    "subcategory_name": "Subcategory name",
+    "subcategory_name_placeholder": "Enter subcategory name",
+    "subcategory_description":"Subcategory description",
+    "subcategory_description_placeholder":"Enter subcategory description"
 
 }
