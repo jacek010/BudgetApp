@@ -3,8 +3,11 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { ReloadContext } from "../context/ReloadContext";
 import ErrorMessage from "./ErrorMessage";
+import { useTranslation } from "react-i18next";
 
 const Register = () =>{
+    const {i18n, t} = useTranslation();
+
     const {reload, triggerReload} = useContext(ReloadContext);
     const[name, setName] = useState("");
     const[surname, setSurname] = useState("");
@@ -41,47 +44,47 @@ const Register = () =>{
             if (password === confirmationPassword && password.length >5){
                 submitRegistration();
             } else{
-                setErrorMessage("Ensure that the password match and greater than 5 characters");
+                setErrorMessage(t("error_password_not_matching"));
             }
         };
 
         return(
             <div className="column">
                 <form className="box" onSubmit={handleSubmit}>
-                    <h1 className="title has-text-centered">Register</h1>
+                    <h1 className="title has-text-centered">{t("register_title")}</h1>
                     <div className="field">
-                        <label className="label">Name</label>
+                        <label className="label">{t("name")}</label>
                         <div className="control">
-                            <input type="text" placeholder="Enter name" value={name} onChange={(e)=>setName(e.target.value)} className="input" required />
+                            <input type="text" placeholder={t("name_placeholder")} value={name} onChange={(e)=>setName(e.target.value)} className="input" required />
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Surname</label>
+                        <label className="label">{t("surname")}</label>
                         <div className="control">
-                            <input type="text" placeholder="Enter surname" value={surname} onChange={(e)=>setSurname(e.target.value)} className="input" required />
+                            <input type="text" placeholder={t("surname_placeholder")} value={surname} onChange={(e)=>setSurname(e.target.value)} className="input" required />
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Email Address</label>
+                        <label className="label">{t("email")}</label>
                         <div className="control">
-                            <input type="email" placeholder="Enter email" value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
+                            <input type="email" placeholder={t("email_placeholder")} value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Password</label>
+                        <label className="label">{t("password")}</label>
                         <div className="control">
-                            <input type="password" placeholder="Enter password" value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
+                            <input type="password" placeholder={t("password_placeholder")} value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Confirm password</label>
+                        <label className="label">{t("password_repeat")}</label>
                         <div className="control">
-                            <input type="password" placeholder="Enter password" value={confirmationPassword} onChange={(e)=>setConfirmationPassword(e.target.value)} className="input" required />
+                            <input type="password" placeholder={t("password_placeholder")} value={confirmationPassword} onChange={(e)=>setConfirmationPassword(e.target.value)} className="input" required />
                         </div>
                     </div>
                     <ErrorMessage message={errorMessage}/>
                     <br />
-                    <button className="button is-primary" type="submit">Register</button>
+                    <button className="button is-primary" type="submit">{t("button_register")}</button>
                 </form>
             </div>
         );

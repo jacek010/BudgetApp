@@ -68,25 +68,25 @@ const BudgetModal = ({ active, handleModal, token, budgetInfo}) => {
                         <div className="field">
                             <label className="label">{t("budget_name")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter budget name" value={budgetName} onChange={(e) => setBudgetName(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("budget_name_placeholder")} value={budgetName} onChange={(e) => setBudgetName(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
                             <label className="label">{t("budget_description")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter budget description" value={budgetDescription} onChange={(e) => setBudgetDescription(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("budget_description_placeholder")} value={budgetDescription} onChange={(e) => setBudgetDescription(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
                             <label className="label">{t("budget_modal_budget_password")}</label>
                             <div className="control">
-                                <input type="password" className="input" required placeholder="Enter new password" value={budgetPassword} onChange={(e) => setBudgetPassword(e.target.value)} />
+                                <input type="password" className="input" required placeholder={t("password_placeholder")} value={budgetPassword} onChange={(e) => setBudgetPassword(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">{t("budget_modal_repeat_budget_password")}</label>
+                            <label className="label">{t("password_repeat")}</label>
                             <div className="control">
-                                <input type="password" className="input" required placeholder="Repeat password" value={budgetPasswordRepeat} onChange={(e) => setBudgetPasswordRepeat(e.target.value)} />
+                                <input type="password" className="input" required placeholder={t("password_repeat")} value={budgetPasswordRepeat} onChange={(e) => setBudgetPasswordRepeat(e.target.value)} />
                             </div>
                         </div>
                         <ErrorMessage message={errorMessage}/>
