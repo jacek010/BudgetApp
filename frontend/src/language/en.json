@@ -1,4 +1,6 @@
 {
+    "welcome_message": "Welcome to Budget App",
+
     "header_welcome": "Welcome",
     "header_budget_details": "Budget details",
     "header_categories": "Categories",
@@ -6,6 +8,8 @@
     "header_payment_reminders": "Payment reminders",
     "header_user_details": "User details",
     "header_logout": "Logout",
+    "header_language": "Language",
+    
 
 
     "logged_title": "Budget App",
@@ -40,6 +44,7 @@
     "button_done":"Done",
     "button_edit":"Edit",
     "button_change_details": "Change details",
+
 
     "budget_summary":"summary",
     "budget_summary_actual_amount":"Actual budget amount",

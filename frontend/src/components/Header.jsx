@@ -27,6 +27,10 @@ const Header = ({ title, changeCurrentTab}) => {
 
     };
 
+    const changeLang = (lang) => {
+        i18n.changeLanguage(lang);
+    };
+
     const getCurrentUser = async() =>{
         setLoading(true);
         fetch('/api/users/me', {
@@ -51,8 +55,17 @@ const Header = ({ title, changeCurrentTab}) => {
     };
 
     return(
-
         <div className="has-text-centered m-6">
+            <div className="columns">
+                <div className="column is-1 is-offset-10">
+                <select className={`button is-fullwidth is-info is-light`} 
+                    value={i18n.language} 
+                    onChange={e => changeLang(e.target.value)}  >
+                    <option value="en">English</option>
+                    <option value="pl">Polski</option>
+                </select>
+                </div>
+            </div>
             {
                 token ? (
                     loading ? (
@@ -61,6 +74,7 @@ const Header = ({ title, changeCurrentTab}) => {
                         <>
                             <h1 className="title is-3">{t("header_welcome")} {userName} {userSurname}</h1>
                             <br></br>
+                            
                             <div className="columns">
                                 {budgetId? (<>
                                 <div className="column is-2">

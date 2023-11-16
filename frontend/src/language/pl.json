@@ -1,4 +1,6 @@
 {
+    "welcome_message": "Witaj w Budget App",
+
     "header_welcome": "Witaj",
     "logged_title": "Aplikacja do zarządzania budetem domowym",
     "budget_summary": "podsumowanie budzetu"
