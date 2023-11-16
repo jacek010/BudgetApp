@@ -10,11 +10,14 @@ import { UserContext } from '../context/UserContext';
 import OperationModal from './OperationModal';
 
 import { Chart, registerables } from 'chart.js';
+import { useTranslation } from 'react-i18next';
 Chart.register(...registerables);
 
 
 
 const OperationsTable = () => {
+    const {i18n, t} = useTranslation();
+    
     const currentDate = moment();
     const firstDayCurrentMonth = currentDate.clone().startOf('month').format('YYYY-MM-DD');
     const firstDayNextMonth = currentDate.clone().add(1,'month').startOf('month').format('YYYY-MM-DD');
@@ -112,7 +115,7 @@ const OperationsTable = () => {
             let chartData = {
                 labels: Object.keys(valueSumsPerDay),
                 datasets: [{
-                label: 'Budget balance',
+                label: t("budget_balance"),
                 backgroundColor: 'red',
                 borderColor: 'turquoise',
                 data: Object.values(valueSumsPerDay)
@@ -160,7 +163,7 @@ const OperationsTable = () => {
         };
         const response = await fetch(`/api/operations/${id}`, requestOptions);
         if (!response.ok) {
-            setErrorMessage("Failed to delete operation")
+            setErrorMessage(t("error_delete_operation"))
         }
         getOperations();
     };
@@ -177,7 +180,7 @@ const OperationsTable = () => {
         const response = await fetch("/api/operations", requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Something went wrong. Couldn't load the operations")
+            setErrorMessage(t("error_get_operations"))
         } else {
             const data = await response.json();
             setOperations(data);
@@ -210,25 +213,25 @@ const OperationsTable = () => {
                     </div>
                     <div className="column has-text-centered">
                         <select className={`button is-fullwidth is-light ${incomeExpense === "income" ? ("is-success") : (incomeExpense === "expense" ? ("is-danger") : ("is-info"))}`} value={incomeExpense} onChange={e => setIncomeExpense(e.target.value)}>
-                            <option value="">All</option>
-                            <option value="income">Income</option>
-                            <option value="expense">Expense</option>
+                            <option value="">{t("all")}</option>
+                            <option value="income">{t("income")}</option>
+                            <option value="expense">{t("expense")}</option>
                         </select>
                     </div>
                     <div className="column has-text-centered">
-                        <button className="button is-dark" onClick={() => resetFilters()}>Reset</button>
+                        <button className="button is-dark" onClick={() => resetFilters()}>{t("button_reset")}</button>
                     </div>
                 </div>
             </div>
             <div className="box">
-                <p className='title is-3 has-text-centered'>Budget balance{fromDate ? (" from " + fromDate) : ("")}{toDate ? (" to " + toDate) : ("")}</p>
+                <p className='title is-3 has-text-centered'>{t("budget_balance")}{fromDate ? (t("from") + fromDate) : ("")}{toDate ? (t("to") + toDate) : ("")}</p>
                 <div className="columns">
                     <div className="column is-6 has-text-left">
-                        <p className='title is-4 has-text-success'>Income</p>
+                        <p className='title is-4 has-text-success'>{t("incomes")}</p>
                         <p className='subtitle is-5 has-text-success'>{incomeSum}</p>
                     </div>
                     <div className="column is-6 has-text-right">
-                        <p className='title is-4 has-text-danger'>Expenses</p>
+                        <p className='title is-4 has-text-danger'>{t("expenses")}</p>
                         <p className='subtitle is-5 has-text-danger'>{-expensesSum}</p>
                     </div>
                 </div>
@@ -236,10 +239,10 @@ const OperationsTable = () => {
                 <div className="columns">
                     <div className="column has-text-centered">
                         <div className="box">
-                            <p className='title is-5 has-text-success'>By categories</p>
+                            <p className='title is-5 has-text-success'>{t("by_categories")}</p>
                             {Object.entries(incomesSums).map(([category_name, value]) => (
                                 <div key={category_name}>
-                                    {category_name}: {value.toFixed(2)}
+                                    {t("categories_"+category_name)}: {value.toFixed(2)}
                                     <progress class={`progress ${categoryColors[category_name]} is-small`} value={`${parseFloat(value)}`} max={`${parseFloat(incomeSum)}`}></progress>
                                 </div>
                             ))}
@@ -250,7 +253,7 @@ const OperationsTable = () => {
                             <p className='title is-5 has-text-danger'>By categories</p>
                             {Object.entries(expensesSums).map(([category_name, value]) => (
                                 <div key={category_name}>
-                                    {category_name}: {parseFloat(-value).toFixed(2)}
+                                    {t("categories_"+category_name)}: {parseFloat(-value).toFixed(2)}
                                     <progress class={`progress ${categoryColors[category_name]}_inverted is-small`} value={`${parseFloat((-expensesSum) + value)}`} max={`${parseFloat(-expensesSum)}`}></progress>
                                 </div>
                             ))}
@@ -266,19 +269,19 @@ const OperationsTable = () => {
             <OperationModal active={activeModal} handleModal={handleModal} token={token} id={id} setErrorMessage={setErrorMessage} />
             <button className='button is-fullwidth mb-5 is-primary'
                 onClick={() => setActiveModal(true)}>
-                Add operation
+                {t("button_add_operation")}
             </button>
             <ErrorMessage message={errorMessage} />
             {loaded ? (
                 <table className='table is-fullwidth'>
                     <thead>
                         <tr>
-                            <th>Operation name</th>
-                            <th>Value</th>
-                            <th>Date</th>
-                            <th>Subcategory</th>
-                            <th>User</th>
-                            <th className='has-text-right'>Actions</th>
+                            <th>{t("operation_name")}</th>
+                            <th>{t("value")}</th>
+                            <th>{t("date")}</th>
+                            <th>{t("category")}</th>
+                            <th>{t("user")}</th>
+                            <th className='has-text-right'>{t("actions")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -290,8 +293,12 @@ const OperationsTable = () => {
                                 <td className='has-text-centered'><span className={`tag ${operation.category_color}`}>{operation.subcategory_name}</span></td>
                                 <td>{operation.user_name + " " + operation.user_surname}</td>
                                 <td className='has-text-right'>
-                                    <button className="button mr-2 is-link" onClick={() => handleUpdate(operation.operation_id)}>Update</button>
-                                    <button className="button mr-2 is-danger is-light" onClick={() => handleDelete(operation.operation_id)}>Delete</button>
+                                    <button className="button mr-2 is-link" onClick={() => handleUpdate(operation.operation_id)}>
+                                        {t("button_update")}
+                                    </button>
+                                    <button className="button mr-2 is-danger is-light" onClick={() => handleDelete(operation.operation_id)}>
+                                        {t("button_delete")}
+                                    </button>
                                 </td>
                             </tr>
                         ))}

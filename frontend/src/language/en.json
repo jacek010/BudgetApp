@@ -33,9 +33,19 @@
     "button_join":"Join",
     "button_create_budget":"Create budget",
     "button_login":"Login",
+    "button_reset":"Reset",
+    "button_add_operation":"Add operation",
 
     "budget_summary":"summary",
     "budget_summary_actual_amount":"Actual budget amount",
+
+    "budget_balance":"Budget balance",
+    "from":" from ",
+    "to":" to ",
+
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "by_categories": "By categories",
 
     "categories_add_subcategory":"Add subcategory",
     "categories_food":"Food",
@@ -59,10 +69,12 @@
     "email": "Email Address",
     "email_placeholder":"Enter email",
 
+    "error_get_operations":"Something went wrong. Couldn't load the operations",
     "error_get_operation": "Could not get the operation",
     "error_get_categories": "Could not get the categories or subcategories",
     "error_create_operation": "Something went wrong when creating operation",
     "error_update_operation": "Something went wrong when updating operation",
+    "error_delete_operation": "Something went wrong when deleting operation",
 
     "operation_modal_title_update": "Update operation",
     "operation_modal_title_add": "Add operation",
@@ -70,12 +82,15 @@
     "operation_name_placeholder":"Enter peration name",
     "value":"Value",
     "value_placeholder":"Enter value",
+    "all":"All",
     "income": "Income",
     "expense": "Expense",
     "date": "Date",
     "date_placeholder": "Enter date",
     "category": "Category",
-    "subcategory": "Subcategory"
+    "subcategory": "Subcategory",
+    "user":"User",
+    "actions": "Actions"
 
 
 
