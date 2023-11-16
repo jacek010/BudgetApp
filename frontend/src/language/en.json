@@ -21,8 +21,7 @@
     "budget_members_failure":"Unable to load budget members",
     "budget_change_details": "Change details",
 
-    "error_udpate_budget":"Something went wrong when updating budget",
-    "error_password_not_matching":"Ensure that the password match and greater than 5 characters",
+    
     "budget_modal_edit_budget_details":"Edit budget details",
     "budget_modal_budget_password":"Budget password",
     
@@ -40,6 +39,7 @@
     "button_add_reminder":"Add reminder",
     "button_done":"Done",
     "button_edit":"Edit",
+    "button_change_details": "Change details",
 
     "budget_summary":"summary",
     "budget_summary_actual_amount":"Actual budget amount",
@@ -61,7 +61,7 @@
     "categories_inwestitions": "Investitions",
     "categories_work": "Work",
 
-    "error_homepage_selector": "Something wrong happens during switching the tabs. Please reload",
+    
 
     "new_budget_create_title":"Create new fresh budget",
     "existing_budget_join_title":"Join to an existing budget",
@@ -74,6 +74,10 @@
     "email": "Email Address",
     "email_placeholder":"Enter email",
 
+
+    "error_udpate_budget":"Something went wrong when updating budget",
+    "error_password_not_matching":"Ensure that the password match and greater than 5 characters",
+    "error_homepage_selector": "Something wrong happens during switching the tabs. Please reload",
     "error_get_operations":"Something went wrong. Couldn't load the operations",
     "error_get_operation": "Could not get the operation",
     "error_get_categories": "Could not get the categories or subcategories",
@@ -87,6 +91,7 @@
     "error_done_reminder":"Something went wrong. Couldn't done reminder",
     "error_cancel_reminder":"Something went wrong. Couldn't cancel reminder",
     "error_add_subcategory":"Something went wrong. Couldn't add subcategory",
+    "error_update_user":"Something went wrong. Couldn't update user",
     
 
     "operation_modal_title_update": "Update operation",
@@ -130,6 +135,13 @@
     "subcategory_name": "Subcategory name",
     "subcategory_name_placeholder": "Enter subcategory name",
     "subcategory_description":"Subcategory description",
-    "subcategory_description_placeholder":"Enter subcategory description"
+    "subcategory_description_placeholder":"Enter subcategory description",
+
+    "user_name": "Name",
+    "user_name_placeholder": "Name",
+    "user_surname": "Surname",
+    "user_surname_placeholder": "Surname",
+    "user_modal_title": "Edit user details"
+    
 
 }
