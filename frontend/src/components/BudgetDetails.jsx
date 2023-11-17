@@ -89,7 +89,7 @@ const BudgetDetails = ({budgetId, token})=>{
                                 showPassword ? (
                                     <p>{budgetInfo.budget_encrypted_password}</p>
                                 ):(
-                                    <p>{t("budget_password_hiden")}</p>
+                                    <p>{t("budget_password_hidden")}</p>
                                 )
                             }
                             
