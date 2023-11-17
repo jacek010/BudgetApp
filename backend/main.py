@@ -51,6 +51,14 @@ async def generate_token(
 async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     return user
 
+@app.get("/api/users/get_by_email/{email}", tags=["users", "admin"])
+async def get_user_by_email(
+    email:str,
+    _db: Session = _fastapi.Depends(get_db),
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+):
+    return await _services.get_user_by_email(email=email,_db=_db)
+
 
 @app.put("/api/users/update", tags=["user"])
 async def update_user(

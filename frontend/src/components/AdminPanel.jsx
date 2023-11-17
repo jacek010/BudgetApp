@@ -40,13 +40,21 @@ const AdminPanel = ({token})=>{
 
             <form className="box" onSubmit={handleDeleteUser}>
                 <h1 className="title has-text-centered">{t("admin_delete_user_account_title")}</h1>
-                <div className="field">
-                    <label className="label">{t("email")}</label>
-                    <div className="control">
-                        <input type="email" placeholder={t("email_placeholder")} value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
+                <div className="columns">
+                    <div className="column">
+                        <div className="field">
+                            <label className="label">{t("email")}</label>
+                            <div className="control">
+                                <input type="email" placeholder={t("email_placeholder")} value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
+                            </div>
+                        </div>
+                        <button className="button is-primary" type="submit">{t("button_admin_delete_user")}</button>
+                    </div>
+                    <div className="column">
+
                     </div>
                 </div>
-                <button className="button is-primary" type="submit">{t("button_admin_delete_user")}</button>
+                
             </form>
 
             <form className="box" onSubmit={handleDetachUser}>

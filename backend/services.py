@@ -423,8 +423,6 @@ async def delete_user(user_id:int, _db:Session):
     
 async def detach_user(user_id:int, _db:Session):
     user_to_detach = _db.query(_models.User).filter(_models.User.user_id==user_id).first()
-    if(user_to_detach.budget_id != 0):
-        await change_operations_user(user_to_detach.user_id, user_to_detach.budget_id, _db)
     
     user_to_detach.budget_id = 0
     
