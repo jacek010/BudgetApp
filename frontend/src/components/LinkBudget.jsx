@@ -120,7 +120,7 @@ const ExistingBudget = () =>{
 
     return(
         <form onSubmit={handleSubmitExisting} className="box">
-            <h1 className="title has-text-centered">J{t("existing_budget_join_title")}</h1>
+            <h1 className="title has-text-centered">{t("existing_budget_join_title")}</h1>
             <div className="field">
                 <label className="label">{t("budget_id")}</label>
                 <div className="control">

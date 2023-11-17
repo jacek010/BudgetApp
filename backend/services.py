@@ -412,3 +412,42 @@ async def set_reminder_to_next_cycle(
     
     return _schemas.Reminder.model_validate(reminder_db)
 
+
+async def delete_user(user_id:int, _db:Session):
+    user_to_delete = _db.query(_models.User).filter(_models.User.user_id==user_id).first()
+    if(user_to_delete.budget_id != 0):
+        await change_operations_user(user_to_delete.user_id, user_to_delete.budget_id, _db)
+    
+    _db.delete(user_to_delete)
+    _db.commit()
+    
+async def detach_user(user_id:int, _db:Session):
+    user_to_detach = _db.query(_models.User).filter(_models.User.user_id==user_id).first()
+    if(user_to_detach.budget_id != 0):
+        await change_operations_user(user_to_detach.user_id, user_to_detach.budget_id, _db)
+    
+    user_to_detach.budget_id = 0
+    
+    _db.commit()
+    _db.refresh(user_to_detach)
+
+async def change_operations_user(old_user_id: int, budget_id: int, _db: Session):
+    new_user = _db.query(_models.User).filter(
+        _models.User.budget_id == budget_id,
+        _models.User.user_id != old_user_id
+    ).first()
+
+    if new_user is None:
+        raise _fastapi.HTTPException(status_code=404, detail="No other user in this budget")
+
+    operations_to_update = _db.query(_models.Operation).filter(
+        _models.Operation.user_id == old_user_id,
+        _models.Operation.budget_id == budget_id
+    )
+    operations_to_update.update({ _models.Operation.user_id: new_user.user_id })
+    _db.commit()
+    for operation in operations_to_update.all():
+        _db.refresh(operation)
+
+async def delete_budget(budget_id:int, _db:Session):
+    pass

@@ -271,3 +271,23 @@ async def done_reminder(
     await _services.create_operation(user=user, _db=_db, operation=operation_from_reminder)
     
     return {"message": "Succesfully done"}
+
+@app.delete("/api/admin/delete_user/{user_id}", tags=["admin"])
+async def delete_user(
+    user_id:int,
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    _db: Session = _fastapi.Depends(get_db),
+):
+    await _services.delete_user(user_id=user_id, _db=_db)
+    
+    return {"Message":"User deleted successfully"}
+
+@app.put("/api/admin/detach_user/{user_id}", tags=["admin"])
+async def detach_user(
+    user_id:int,
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    _db: Session = _fastapi.Depends(get_db),
+):
+    await _services.detach_user(user_id=user_id, _db=_db)
+    
+    return {"Message":"User detached successfully"}
