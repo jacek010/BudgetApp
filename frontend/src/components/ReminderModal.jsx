@@ -118,7 +118,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
     };
 
     const checkValue = (val) => {
-        if (val && val != "-") {
+        if (val && val !== "-" && !val.endsWith(".")) {
             let parsedVal = parseFloat(val);
             if (parsedVal < 0) {
                 setValue(-1 * parsedVal);

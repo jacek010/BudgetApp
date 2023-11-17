@@ -7,7 +7,7 @@ import plTranslations from "./pl.json";
 i18n
     .use(initReactI18next)
     .init({
-  lng: "en",
+  lng: "pl",
   fallbackLng: "pl",
   interpolation: {
     escapeValue: false
