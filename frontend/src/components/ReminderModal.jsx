@@ -1,6 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
+    const {i18n, t} = useTranslation();
+
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
@@ -65,7 +68,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         const response = await fetch(`/api/reminders/${id}`, requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Could not get the reminder");
+            setErrorMessage(t("error_get_reminder"));
         } else {
             const data = await response.json();
             setName(data.reminder_name);
@@ -98,7 +101,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         const response = await fetch(`/api/categories_subcategories`, requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Could not get the categories or subcategories");
+            setErrorMessage(t("error_get_categories"));
         } else {
             const data = await response.json();
             setCategories(data.categories);
@@ -115,7 +118,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
     };
 
     const checkValue = (val) => {
-        if (val && val != "-") {
+        if (val && val !== "-" && !val.endsWith(".")) {
             let parsedVal = parseFloat(val);
             if (parsedVal < 0) {
                 setValue(-1 * parsedVal);
@@ -162,7 +165,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         const response = await fetch("/api/reminders", requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Something went wrong when creating reminder");
+            setErrorMessage(t("error_create_reminder"));
         } else {
             cleanFormData();
             handleModal();
@@ -191,7 +194,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         const response = await fetch(`/api/reminders/${id}`, requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Something went wrong when updating reminder");
+            setErrorMessage(t("error_update_reminder"));
         } else {
             cleanFormData();
             handleModal();
@@ -204,49 +207,49 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
             <div className="modal-card">
                 <header className="modal-card-head has-background-primary-light">
                     <h1 className="modal-card-title">
-                        {id ? "Update Reminder" : "Add Reminder"}
+                        {id ? t("reminder_modal_title_update") : t("reminder_modal_title_add")}
                     </h1>
                 </header>
                 <section className="modal-card-body">
                     <form>
                         <div className="field">
-                            <label className="label">Reminder name</label>
+                            <label className="label">{t("reminder_name")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter operation name" value={name} onChange={(e) => setName(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("reminder_name_placeholder")} value={name} onChange={(e) => setName(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Description</label>
+                            <label className="label">{t("reminder_description")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("reminder_description_placeholder")} value={description} onChange={(e) => setDescription(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Value</label>
+                            <label className="label">{t("value")}</label>
                             <div className="columns">
                                 <div className="column">
                                     <div className="control">
-                                        <input type="text" className="input" required placeholder="Enter operation value" value={value} onChange={(e) => checkValue(e.target.value)} />
+                                        <input type="text" className="input" required placeholder={t("value_placeholder")} value={value} onChange={(e) => checkValue(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="column">
                                     <select className={`button is-fullwidth is-light ${incomeExpense === "income" ? ("is-success") : ("is-danger")}`}
                                         value={incomeExpense}
                                         onChange={e => setIncomeExpense(e.target.value)}  >
-                                        <option value="income">Income</option>
-                                        <option value="expense">Expense</option>
+                                        <option value="income">{t("income")}</option>
+                                        <option value="expense">{t("expense")}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Date</label>
+                            <label className="label">{t("date")}</label>
                             <div className="control">
-                                <input type="date" className="input" required placeholder="Enter reminder date" value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" className="input" required placeholder={t("date_placeholder")} value={date} onChange={(e) => setDate(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Repeat after</label>
+                            <label className="label">{t("repeat_after")}</label>
                             <div className="control">
                                 <div className="columns">
                                     <div className="column">
@@ -254,21 +257,21 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                                     </div>
                                     <div className="column">
                                         <select className={`button is-fullwidth`} value={repeatScale} onChange={e => setRepeatScale(e.target.value)}>
-                                            <option value="days">Days</option>
-                                            <option value="months">Months</option>
-                                            <option value="years">Years</option>
+                                            <option value="days">{t("days")}</option>
+                                            <option value="months">{t("months")}</option>
+                                            <option value="years">{t("years")}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Category</label>
+                            <label className="label">{t("category")}</label>
                             <div className="control">
                                 <select className="input" required value={categoryId} onChange={(e) => changeActiveCategory(e.target.value)}>
                                     {categories ? (categories.map(category => (
                                         <option key={category.category_id} value={category.category_id}>
-                                            <span className="title">{category.category_name}</span>
+                                            <span className="title">{t("categories_"+category.category_name)}</span>
                                         </option>
                                     ))) : (
                                         <progress class="progress is-large" max="100"></progress>
@@ -277,7 +280,7 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Subcategory</label>
+                            <label className="label">{t("subcategory")}</label>
                             <div className="control">
                                 <select className="input" required value={subcategoryId} onChange={(e) => setSubcategoryId(e.target.value)}>
                                     {subcategories ? (subcategories.map(subcategory => (
@@ -296,11 +299,11 @@ const ReminderModal = ({ active, handleModal, token, id, setErrorMessage }) => {
                 </section>
                 <footer className="modal-card-foot has-background-primary-light">
                     {id ? (
-                        <button className="button is-info" onClick={handleUpdateReminder}>Update</button>
+                        <button className="button is-info" onClick={handleUpdateReminder}>{t("button_update")}</button>
                     ) : (
-                        <button className="button is-primary" onClick={handleCreateReminder}>Add</button>
+                        <button className="button is-primary" onClick={handleCreateReminder}>{t("button_add")}</button>
                     )}
-                    <button className="button" onClick={handleModal}>Cancel</button>
+                    <button className="button" onClick={handleModal}>{t("button_cancel")}</button>
                 </footer>
             </div>
         </div>

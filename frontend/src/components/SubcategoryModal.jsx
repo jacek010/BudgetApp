@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import ErrorMessage from './ErrorMessage';
+import { useTranslation } from "react-i18next";
 
 
 
 const SubcategoryModal = ({ active, handleModal, token, categoryId, categoryName}) => {
+    const {i18n, t} = useTranslation();
 
     const [subcategoryName, setSubcategoryName] = useState('');
     const [subcategoryDescription, setSubcategoryDescription] = useState('');
@@ -31,7 +33,7 @@ const SubcategoryModal = ({ active, handleModal, token, categoryId, categoryName
         const response = await fetch(`/api/subcategories`, requestOptions);
 
         if(!response.ok) {
-            setErrorMessage("Something went wrong when adding subcategory");
+            setErrorMessage(t("error_add_subcategory"));
         } else {
             cleanFormData();
             handleModal();
@@ -52,29 +54,29 @@ const SubcategoryModal = ({ active, handleModal, token, categoryId, categoryName
             <div className="modal-card">
                 <header className="modal-card-head has-background-primary-light">
                     <h1 className="modal-card-title">
-                        Add subcategory to "{categoryName}"
+                        {t("subcategory_modal_title")} "{categoryName}"
                     </h1>
                 </header>
                 <section className="modal-card-body">
                     <form>
                         <div className="field">
-                            <label className="label">Subcategory name</label>
+                            <label className="label">{t("subcategory_name")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter subcategory name" value={subcategoryName} onChange={(e) => setSubcategoryName(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("subcategory_name_placeholder")}value={subcategoryName} onChange={(e) => setSubcategoryName(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Subcategory description</label>
+                            <label className="label">{t("subcategory_description")}</label>
                             <div className="control">
-                                <textarea className="input" required placeholder="Enter subcategory description" value={subcategoryDescription} onChange={(e) => setSubcategoryDescription(e.target.value)} />
+                                <textarea className="input" required placeholder={t("subcategory_description_placeholder")} value={subcategoryDescription} onChange={(e) => setSubcategoryDescription(e.target.value)} />
                             </div>
                         </div>
                         <ErrorMessage message={errorMessage}/>
                     </form>
                 </section>
                 <footer className="modal-card-foot has-background-primary-light">
-                    <button className="button is-info" onClick={handleAdd}>Add</button>
-                    <button className="button" onClick={handleModal}>Cancel</button>
+                    <button className="button is-info" onClick={handleAdd}>{t("button_add")}</button>
+                    <button className="button" onClick={handleModal}>{t("button_cancel")}</button>
                 </footer>
             </div>
         </div>

@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../context/UserContext";
 import { ReloadContext } from "../context/ReloadContext";
+import { useTranslation } from "react-i18next";
 
 const Header = ({ title, changeCurrentTab}) => {
+    const { i18n, t } = useTranslation();
+
     const [token, setToken] = useContext(UserContext);
     const [loading, setLoading] = useState(false);
 
@@ -22,6 +25,10 @@ const Header = ({ title, changeCurrentTab}) => {
     const handleLogout = () => {
         setToken(null);
 
+    };
+
+    const changeLang = (lang) => {
+        i18n.changeLanguage(lang);
     };
 
     const getCurrentUser = async() =>{
@@ -48,47 +55,59 @@ const Header = ({ title, changeCurrentTab}) => {
     };
 
     return(
-
         <div className="has-text-centered m-6">
+            <div className="columns">
+                <div className="column is-1 is-offset-10">
+                <select className={`button is-fullwidth is-info is-light`} 
+                    value={i18n.language} 
+                    onChange={e => changeLang(e.target.value)}  >
+                    <option value="en">English</option>
+                    <option value="pl">Polski</option>
+                </select>
+                </div>
+            </div>
             {
                 token ? (
                     loading ? (
                         <progress class="progress is-large" max="100"></progress>
                     ) : (
                         <>
-                            <h1 className="title is-3">Welcome {userName} {userSurname}</h1>
+                            <h1 className="title is-3">{t("header_welcome")} {userName} {userSurname}</h1>
                             <br></br>
+                            
                             <div className="columns">
                                 {budgetId? (<>
                                 <div className="column is-2">
                                     <button className="button is-success is-fullwidth" onClick={()=>changeCurrentTab('BudgetDetails')}>
-                                        Budgets details
+                                    {t("header_budget_details")}
                                     </button>
                                 </div>
                                 <div className="column is-2">
                                     <button className="button is-info is-fullwidth" onClick={()=>changeCurrentTab('Categories')}>
-                                        Categories
+                                    {t("header_categories")}
                                     </button>
                                 </div>
                                 <div className="column is-2">
                                     <button className="button is-primary is-fullwidth" onClick={()=>changeCurrentTab('BudgetSummary')}>
-                                        Budget summary
+                                    {t("header_budget_summary")}
                                     </button>
                                 </div>
                                 <div className="column is-2">
                                     <button className="button is-link is-fullwidth" onClick={()=>changeCurrentTab('PaymentReminders')}>
-                                        Payment reminders
+                                    {t("header_payment_reminders")}
                                     </button>
                                 </div>
                                 
                                 <div className="column is-2">
                                     <button className="button is-warning is-fullwidth" onClick={()=>changeCurrentTab('UserDetails')}>
-                                        User details
+                                    {t("header_user_details")}
                                     </button>
                                 </div>
                                 </>):(<></>)}
                                 <div className="column is-1">
-                                    <button className="button is-danger"  onClick={handleLogout}>Logout</button>
+                                    <button className="button is-danger"  onClick={handleLogout}>
+                                    {t("header_logout")}
+                                    </button>
                                 </div>
                             </div>
                         </>

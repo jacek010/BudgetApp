@@ -3,8 +3,11 @@ import React, { useState, useContext } from "react";
 import ErrorMessage from "./ErrorMessage";
 import { UserContext } from "../context/UserContext";
 import { ReloadContext } from "../context/ReloadContext";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+    const { i18n, t} = useTranslation();
+
     const {reload, triggerReload} = useContext(ReloadContext);
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
@@ -39,22 +42,22 @@ const Login = () => {
     return(
         <div className="column">
                 <form className="box" onSubmit={handleSubmit}>
-                    <h1 className="title has-text-centered">Login</h1>
+                    <h1 className="title has-text-centered">{t("button_login")}</h1>
                     <div className="field">
-                        <label className="label">Email Address</label>
+                        <label className="label">{t("email")}</label>
                         <div className="control">
-                            <input type="email" placeholder="Enter email" value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
+                            <input type="email" placeholder={t("email_placeholder")} value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Password</label>
+                        <label className="label">{t("password")}</label>
                         <div className="control">
-                            <input type="password" placeholder="Enter password" value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
+                            <input type="password" placeholder={t("password_placeholder")} value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
                         </div>
                     </div>
                     <ErrorMessage message={errorMessage}/>
                     <br />
-                    <button className="button is-primary" type="submit">Login</button>
+                    <button className="button is-primary" type="submit">{t("button_login")}</button>
                 </form>
             </div>
     );

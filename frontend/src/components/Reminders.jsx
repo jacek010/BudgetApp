@@ -6,9 +6,11 @@ import { UserContext } from '../context/UserContext';
 
 import ErrorMessage from "./ErrorMessage";
 import ReminderModal from './ReminderModal';
+import { useTranslation } from 'react-i18next';
 
 
 const Reminders = ()=>{
+    const {i18n, t} = useTranslation();
 
     const [token] = useContext(UserContext);
     const { reload, triggerReload } = useContext(ReloadContext);
@@ -45,7 +47,7 @@ const Reminders = ()=>{
         const response = await fetch("/api/reminders", requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Something went wrong. Couldn't load the reminders")
+            setErrorMessage(t("error_get_reminders"));
         } else {
             const data = await response.json();
             setReminders(data);
@@ -54,7 +56,6 @@ const Reminders = ()=>{
     }
 
     const handleDoneReminder = async (id) => {
-        console.log("Reminder done "+id);
         const requestOptions = {
             method: "PUT",
             headers: {
@@ -66,7 +67,7 @@ const Reminders = ()=>{
         const response = await fetch(`/api/reminders/done/${id}`, requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Something went wrong. Couldn't done reminder")
+            setErrorMessage(t("error_done_reminder"));
         } else {
             getReminders();
             triggerReload();
@@ -74,13 +75,11 @@ const Reminders = ()=>{
     };
 
     const handleEditReminder = async (id) => {
-        console.log("Reminder updating "+id);
         setId(id);
         setActiveModal(true);
     };
 
     const handleCancelReminder = async (id) => {
-        console.log("Reminder canceled "+id);
         const requestOptions = {
             method: "DELETE",
             headers: {
@@ -92,7 +91,7 @@ const Reminders = ()=>{
         const response = await fetch(`/api/reminders/${id}`, requestOptions);
 
         if (!response.ok) {
-            setErrorMessage("Something went wrong. Couldn't cancel reminder")
+            setErrorMessage(t("error_cancel_reminder"));
         } else {
             getReminders();
             triggerReload();
@@ -104,7 +103,7 @@ const Reminders = ()=>{
             <ReminderModal active={activeModal} handleModal={handleModal} token={token} id={id} setErrorMessage={setErrorMessage} />
             <button className='button is-fullwidth mb-5 is-link'
                 onClick={() => setActiveModal(true)}>
-                Add reminder
+                {t("button_add_reminder")}
             </button>
             <ErrorMessage message={errorMessage} />
             {reminders?(
@@ -112,22 +111,22 @@ const Reminders = ()=>{
                     <div className="box">
                         <div className="columns">
                             <div className="column has-text-centered">
-                                Name
+                                {t("name")}
                             </div>
                             <div className="column has-text-centered">
-                                Description
+                                {t("description")}
                             </div>
                             <div className="column has-text-centered">
-                                Value
+                                {t("value")}
                             </div>
                             <div className="column has-text-centered">
-                                Category
+                                {t("category")}
                             </div>
                             <div className="column has-text-centered">
-                                Date
+                                {t("date")}
                             </div>
                             <div className="column has-text-centered">
-                                Repeat cycle
+                                {t("repeat_cycle")}
                             </div>
                         </div>
                     </div>
@@ -159,17 +158,17 @@ const Reminders = ()=>{
                                 <div className="columns">
                                     <div className="column has-text-centered">
                                         <button className="button is-light is-primary is-fullwidth" onClick={() => handleDoneReminder(reminder.reminder_id)}>
-                                            <p className='title is-6'>Done</p>
+                                            <p className='title is-6'>{t("button_done")}</p>
                                         </button>
                                     </div>
                                     <div className="column has-text-centered">
                                         <button className="button is-light is-link is-fullwidth" onClick={() => handleEditReminder(reminder.reminder_id)}>
-                                            <p className='title is-6'>Edit</p>
+                                            <p className='title is-6'>{t("button_edit")}</p>
                                         </button>
                                     </div>
                                     <div className="column has-text-centered">
                                         <button className="button is-light is-danger is-fullwidth" onClick={() => handleCancelReminder(reminder.reminder_id)}>
-                                            <p className='title is-6'>Cancel</p>
+                                            <p className='title is-6'>{t("button_cancel")}</p>
                                         </button>
                                     </div>
                                 </div>

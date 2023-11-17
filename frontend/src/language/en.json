@@ -1,0 +1,152 @@
+{
+    "welcome_message": "Welcome to Budget App",
+
+    "header_welcome": "Welcome",
+    "header_budget_details": "Budget details",
+    "header_categories": "Categories",
+    "header_budget_summary": "Budget summary",
+    "header_payment_reminders": "Payment reminders",
+    "header_user_details": "User details",
+    "header_logout": "Logout",
+    "header_language": "Language",
+    
+
+
+    "logged_title": "Budget App",
+    "budget_name": "Budget name",
+    "budget_description": "Budget description",
+    "password":"Password",
+    "password_repeat":"Repeat password",
+    "budget_password_subtitle":"Press button to reveal",
+    "budget_password_hide":"Hide",
+    "budget_password_show":"Show",
+    "budget_password_hidden":"Password hidden",
+    "budget_members": "Members",
+    "budget_members_failure":"Unable to load budget members",
+    "budget_change_details": "Change details",
+
+    
+    "budget_modal_edit_budget_details":"Edit budget details",
+    "budget_modal_budget_password":"Budget password",
+    
+
+    "button_update":"Update",
+    "button_delete":"Delete",
+    "button_cancel":"Cancel",
+    "button_add":"Add",
+    "button_join":"Join",
+    "button_create_budget":"Create budget",
+    "button_login":"Login",
+    "button_reset":"Reset",
+    "button_add_operation":"Add operation",
+    "button_register":"Register",
+    "button_add_reminder":"Add reminder",
+    "button_done":"Done",
+    "button_edit":"Edit",
+    "button_change_details": "Change details",
+
+
+    "budget_summary":"summary",
+    "budget_summary_actual_amount":"Actual budget amount",
+
+    "budget_balance":"Budget balance",
+    "from":" from ",
+    "to":" to ",
+
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "by_categories": "By categories",
+
+    "categories_add_subcategory":"Add subcategory",
+    "categories_food":"Food",
+    "categories_entertainment":"Entertainment",
+    "categories_transport":"Transport",
+    "categories_fees": "Fees",
+    "categories_studies": "Studies",
+    "categories_inwestitions": "Investitions",
+    "categories_work": "Work",
+
+    
+
+    "new_budget_create_title":"Create new fresh budget",
+    "existing_budget_join_title":"Join to an existing budget",
+    "budget_id":"Budget id",
+    "budget_id_placeholder":"Enter budget id",
+    "password_placeholder":"Enter password",
+    "budget_name_placeholder":"Enter budget name",
+    "budget_description_placeholder":"Enter budget description",
+
+    "email": "Email Address",
+    "email_placeholder":"Enter email",
+
+
+    "error_udpate_budget":"Something went wrong when updating budget",
+    "error_password_not_matching":"Ensure that the password match and greater than 5 characters",
+    "error_homepage_selector": "Something wrong happens during switching the tabs. Please reload",
+    "error_get_operations":"Something went wrong. Couldn't load the operations",
+    "error_get_operation": "Could not get the operation",
+    "error_get_categories": "Could not get the categories or subcategories",
+    "error_create_operation": "Something went wrong when creating operation",
+    "error_update_operation": "Something went wrong when updating operation",
+    "error_delete_operation": "Something went wrong when deleting operation",
+    "error_get_reminders":"Something went wrong. Couldn't load the reminders",
+    "error_get_reminder":"Could not get the reminder",
+    "error_create_reminder":"Something went wrong when creating reminder",
+    "error_update_reminder":"Something went wrong when updating reminder",
+    "error_done_reminder":"Something went wrong. Couldn't done reminder",
+    "error_cancel_reminder":"Something went wrong. Couldn't cancel reminder",
+    "error_add_subcategory":"Something went wrong. Couldn't add subcategory",
+    "error_update_user":"Something went wrong. Couldn't update user",
+    
+
+    "operation_modal_title_update": "Update operation",
+    "operation_modal_title_add": "Add operation",
+    "operation_name":"Operation name",
+    "operation_name_placeholder":"Enter peration name",
+    "value":"Value",
+    "value_placeholder":"Enter value",
+    "all":"All",
+    "income": "Income",
+    "expense": "Expense",
+    "date": "Date",
+    "date_placeholder": "Enter date",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "user":"User",
+    "actions": "Actions",
+
+    "register_title": "Register",
+    "name": "Name",
+    "name_placeholder": "Enter name",
+    "surname": "Surname",
+    "surname_placeholder": "Enter surname",
+
+    "reminder_modal_title_update": "Update reminder",
+    "reminder_modal_title_add": "Add reminder",
+
+    "reminder_name": "Reminder name",
+    "reminder_name_placeholder": "Enter reminder name",
+    "reminder_description":"Reminder description",
+    "reminder_description_placeholder":"Enter reminder description",
+    "repeat_after": "Repeat after",
+    "repeat_cycle": "Repeat cycle",
+    "days": "Days",
+    "months":"Months",
+    "years": "Years",
+
+    "description":"Description",
+
+    "subcategory_modal_title": "Add subcategory to ",
+    "subcategory_name": "Subcategory name",
+    "subcategory_name_placeholder": "Enter subcategory name",
+    "subcategory_description":"Subcategory description",
+    "subcategory_description_placeholder":"Enter subcategory description",
+
+    "user_name": "Name",
+    "user_name_placeholder": "Name",
+    "user_surname": "Surname",
+    "user_surname_placeholder": "Surname",
+    "user_modal_title": "Edit user details"
+    
+
+}

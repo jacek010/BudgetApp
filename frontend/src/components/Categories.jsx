@@ -3,8 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ReloadContext } from '../context/ReloadContext';
 
 import SubcategoryModal from "./SubcategoryModal";
+import { useTranslation } from 'react-i18next';
 
 const Categories = ({ token })=>{
+    const {i18n, t} = useTranslation();
 
     const {reload, triggerReload} = useContext(ReloadContext);
     const [loaded, setLoaded] = useState(false);
@@ -69,7 +71,7 @@ const Categories = ({ token })=>{
                        <li  key={category.category_id} onClick={() => handleCategoryClick(category.category_id)}>
                            <div className={`notification is-fullwidth ${category.category_color}`}>
                             <p className={`title is-fullwidth`}>
-                                {category.category_name}
+                                {t(`categories_${category.category_name}`)}
                             </p>
                             <p className="subtitle">
                                 {category.category_description}
@@ -85,7 +87,7 @@ const Categories = ({ token })=>{
                                    </li>
                                ))}
                            </ul>
-                           <button className="button mr-2 is-white" onClick={() => handleAddSubcategory( {id:category.category_id, name:category.category_name})}>Add subcategory</button>
+                           <button className="button mr-2 is-white" onClick={() => handleAddSubcategory( {id:category.category_id, name:category.category_name})}>{t("categories_add_subcategory")}</button>
                            </div>
                        </li>
                    ))}

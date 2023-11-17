@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import ErrorMessage from './ErrorMessage';
+import { useTranslation } from "react-i18next";
 
 const UserModal = ({ active, handleModal, token, userInfo}) => {
+    const {i18n, t} = useTranslation();
 
     const [userName, setUserName] = useState('');
     const [userSurname, setUserSurname] = useState('');
@@ -34,7 +36,7 @@ const UserModal = ({ active, handleModal, token, userInfo}) => {
         const response = await fetch(`/api/users/update`, requestOptions);
 
         if(!response.ok) {
-            setErrorMessage("Something went wrong when updating operation");
+            setErrorMessage(t("error_update_user"));
         } else {
             handleModal();
         }
@@ -44,7 +46,7 @@ const UserModal = ({ active, handleModal, token, userInfo}) => {
         if (userPassword === userPasswordRepeat && userPassword.length >5){
             handleUpdateUser();
         } else{
-            setErrorMessage("Ensure that the password match and greater than 5 characters");
+            setErrorMessage(t("error_pasword_not_matching"));
         }
     };
 
@@ -54,41 +56,41 @@ const UserModal = ({ active, handleModal, token, userInfo}) => {
             <div className="modal-card">
                 <header className="modal-card-head has-background-primary-light">
                     <h1 className="modal-card-title">
-                        Edit user details
+                        {t("user_modal_title")}
                     </h1>
                 </header>
                 <section className="modal-card-body">
                     <form>
                         <div className="field">
-                            <label className="label">User name</label>
+                            <label className="label">{t("user_name")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter budget name" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("user_name_placeholder")} value={userName} onChange={(e) => setUserName(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">User surname</label>
+                            <label className="label">{t("user_surname")}</label>
                             <div className="control">
-                                <input type="text" className="input" required placeholder="Enter budget description" value={userSurname} onChange={(e) => setUserSurname(e.target.value)} />
+                                <input type="text" className="input" required placeholder={t("user_surname_placeholder")} value={userSurname} onChange={(e) => setUserSurname(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">User password</label>
+                            <label className="label">{t("password")}</label>
                             <div className="control">
-                                <input type="password" className="input" required placeholder="Enter new password" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+                                <input type="password" className="input" required placeholder={t("password_placeholder")} value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Repeat user password</label>
+                            <label className="label">{t("password_repeat")}</label>
                             <div className="control">
-                                <input type="password" className="input" required placeholder="Repeat password" value={userPasswordRepeat} onChange={(e) => setUserPasswordRepeat(e.target.value)} />
+                                <input type="password" className="input" required placeholder={t("password_repeat")} value={userPasswordRepeat} onChange={(e) => setUserPasswordRepeat(e.target.value)} />
                             </div>
                         </div>
                         <ErrorMessage message={errorMessage}/>
                     </form>
                 </section>
                 <footer className="modal-card-foot has-background-primary-light">
-                    <button className="button is-info" onClick={handleUpdate}>Update</button>
-                    <button className="button" onClick={handleModal}>Cancel</button>
+                    <button className="button is-info" onClick={handleUpdate}>{t("button_update")}</button>
+                    <button className="button" onClick={handleModal}>{t("button_cancel")}</button>
                 </footer>
             </div>
         </div>

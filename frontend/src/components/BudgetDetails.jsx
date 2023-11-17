@@ -4,8 +4,11 @@ import { ReloadContext } from '../context/ReloadContext';
 
 import BudgetModal from './BudgetModal';
 import ErrorMessage from './ErrorMessage';
+import { useTranslation } from 'react-i18next';
 
 const BudgetDetails = ({budgetId, token})=>{
+    const {i18n, t} = useTranslation();
+
     const {reload, triggerReload} = useContext(ReloadContext);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -53,7 +56,7 @@ const BudgetDetails = ({budgetId, token})=>{
                     <div class="tile">
                     <div class="tile is-parent is-vertical">
                         <article class="tile is-child notification is-primary">
-                            <p class="title">Budget name</p>
+                            <p class="title">{t("budget_name")}</p>
                             <p class="subtitle">{budgetInfo.budget_name}</p>
                         </article>
                         <article class="tile is-child notification is-warning">
@@ -63,21 +66,21 @@ const BudgetDetails = ({budgetId, token})=>{
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child notification is-info">
-                            <p class="title">Budget description</p>
+                            <p class="title">{t("budget_description")}</p>
                             <p class="subtitle">{budgetInfo.budget_description}</p>
                         </article>
                     </div>
                     </div>
                     <div class="tile is-parent">
                     <article class="tile is-child notification is-danger">
-                        <p class="title">Password</p>
-                        <p class="subtitle">Press button to reveal</p>
+                        <p class="title">{t("password")}</p>
+                        <p class="subtitle">{t("budget_password_subtitle")}</p>
                         <button className="button is-warning" onClick={toggleShowPassword}>
                             {
                                 showPassword ? (
-                                    <p>Hide</p>
+                                    <p>{t("budget_password_hide")}</p>
                                 ):(
-                                    <p>Reveal</p>
+                                    <p>{t("budget_password_show")}</p>
                                 )
                             }
                         </button>
@@ -86,7 +89,7 @@ const BudgetDetails = ({budgetId, token})=>{
                                 showPassword ? (
                                     <p>{budgetInfo.budget_encrypted_password}</p>
                                 ):(
-                                    <p>Password hiden</p>
+                                    <p>{t("budget_password_hidden")}</p>
                                 )
                             }
                             
@@ -97,13 +100,13 @@ const BudgetDetails = ({budgetId, token})=>{
                 <div class="tile is-parent">
                     <article class="tile is-child notification is-success">
                     <div class="content">
-                        <p class="title">Members</p>
+                        <p class="title">{t("budget_members")}</p>
                         <div class="content">
                             <ul>
                                 {loaded&&budgetUsers ? (budgetUsers.map((user) => (
                                         <li>{user.user_name} {user.user_surname}</li>
                                     ))):(
-                                        <p>Unable to load budget members</p>
+                                        <p>{t("budget_members_failure")}</p>
                                     )}
                             </ul>
                         </div>
@@ -114,7 +117,7 @@ const BudgetDetails = ({budgetId, token})=>{
             <BudgetModal active={activeModal} handleModal={handleModal} token={token} budgetInfo={budgetInfo} setErrorMessage={setErrorMessage} />
             <button className='button is-fullwidth mb-5 is-success' 
             onClick={()=> setActiveModal(true)}>
-                Change details
+                {t("budget_change_details")}
             </button>
         </>
     );

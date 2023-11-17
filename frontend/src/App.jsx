@@ -3,14 +3,19 @@ import axios from 'axios';
 
 import './sass/mystyles.scss';
 
+import './language/LangConf';
+
 import Register from './components/Register';
 import Login from './components/Login';
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import { UserContext } from './context/UserContext';
 import { ReloadProvider } from './context/ReloadContext';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const {i18n, t} = useTranslation();
+
   const [message, setMessage] = useState('');
   const [token] = useContext(UserContext);
   const [currentTab, setCurrentTab] = useState('BudgetSummary');
@@ -38,7 +43,7 @@ function App() {
   return (
     <>
       <ReloadProvider>
-        <Header title={message} changeCurrentTab={changeCurrentTab}/>
+        <Header title={t("welcome_message")} changeCurrentTab={changeCurrentTab}/>
         <div className="columns">
           <div className="column"></div>
           <div className="column m-5 is-two-thirds">

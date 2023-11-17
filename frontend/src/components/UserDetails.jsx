@@ -3,9 +3,12 @@ import { ReloadContext } from '../context/ReloadContext';
 
 import ErrorMessage from './ErrorMessage';
 import UserModal from './UserModal';
+import { useTranslation } from 'react-i18next';
 
 
 const UserDetails = ({token})=>{
+    const {i18n, t} = useTranslation();
+
     const {reload, triggerReload} = useContext(ReloadContext);
     const [activeModal, setActiveModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -49,13 +52,13 @@ const UserDetails = ({token})=>{
                     <div class="tile">
                         <div class="tile is-parent">
                             <article class="tile is-child notification is-primary">
-                                <p class="title">Name</p>
+                                <p class="title">{t("user_name")}</p>
                                 <p class="subtitle">{userInfo.user_name}</p>
                             </article>
                         </div>
                         <div class="tile is-parent">
                             <article class="tile is-child notification is-info">
-                                <p class="title">Surname</p>
+                                <p class="title">{t("user_surname")}</p>
                                 <p class="subtitle">{userInfo.user_surname}</p>
                             </article>
                         </div>
@@ -64,7 +67,7 @@ const UserDetails = ({token})=>{
                 <div class="tile is-parent">
                     <article class="tile is-child notification is-success">
                     <div class="content">
-                        <p class="title">Email address</p>
+                        <p class="title">{t("email")}</p>
                         <p class="subtitle">{userInfo.user_email}</p>
                     </div>
                     </article>
@@ -73,7 +76,7 @@ const UserDetails = ({token})=>{
             <UserModal active={activeModal} handleModal={handleModal} token={token} userInfo={userInfo} />
             <button className='button is-fullwidth mb-5 is-warning' 
             onClick={()=> setActiveModal(true)}>
-                Change details
+                {t("button_change_details")}
             </button>
         </>
     );
