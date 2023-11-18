@@ -463,3 +463,53 @@ async def delete_budget(budget_id:int, _db:Session):
         
     _db.delete(budget_to_delete)
     _db.commit()
+    
+
+async def create_category(category:_schemas.CategoryCreate, _db:Session):
+    new_category = _models.Category(
+        category_name=category.category_name,
+        category_description=category.category_description,
+        category_color=category.category_color
+    )
+    
+    _db.add(new_category)
+    _db.commit()
+    _db.refresh(new_category)
+
+    return new_category
+
+async def get_category(category_name:str, _db:Session):
+    category = _db.query(_models.Category).filter(_models.Category.category_name==category_name).first()
+    return category
+
+async def delete_category(category_id:int, _db:Session):
+    subcategories_to_delete = _db.query(_models.Subcategory).filter(_models.Subcategory.category_id==category_id).all()
+    
+    for subcategory in subcategories_to_delete:
+        await delete_subcategory(subcategory.subcategory_id, _db)
+        
+    category_to_delete = _db.query(_models.Category).filter(_models.Category.category_id==category_id).first()
+    if not category_to_delete:
+            raise _fastapi.HTTPException(status_code=404, detail="Category with this ID does not exist")
+
+    _db.delete(category_to_delete)
+    _db.commit() 
+        
+    
+async def delete_subcategory(subcategory_id:int, _db:Session):
+    operations_to_update = _db.query(_models.Operation).filter(_models.Operation.subcategory_id==subcategory_id)
+    
+    for operation in operations_to_update:
+        await uncategorize_operation(operation.operation_id, _db)
+    
+    subcategory_to_delete = _db.query(_models.Subcategory).filter(_models.Subcategory.subcategory_id==subcategory_id).first()  
+    _db.delete(subcategory_to_delete)
+    _db.commit()
+
+async def uncategorize_operation(operation_id:int, _db:Session):
+    operation_to_update = _db.query(_models.Operation).filter(_models.Operation.operation_id==operation_id)
+    
+    operation_to_update.update({ _models.Operation.subcategory_id: 0 })
+    
+    _db.commit()
+    _db.refresh(operation_to_update)

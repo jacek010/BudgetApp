@@ -309,3 +309,29 @@ async def delete_budget(
     await _services.delete_budget(budget_id=budget_id, _db=_db)
     
     return {"Message":"Budget deleted successfully"}
+
+@app.post("/api/categories", tags=["admin", "category"])
+async def create_category(
+    category: _schemas.CategoryCreate,
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    _db: Session = _fastapi.Depends(get_db),
+):
+    return await _services.create_category(category=category, _db=_db)
+
+@app.get("/api/categories/{category_name}", tags=["admin", "category"])
+async def get_category(
+    category_name:str,
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    _db: Session = _fastapi.Depends(get_db),
+):
+    return await _services.get_category(category_name=category_name, _db=_db)
+
+@app.delete("/api/admin/delete_category/{category_id}", tags=["admin", "category"])
+async def delete_category(
+    category_id:int,
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    _db: Session = _fastapi.Depends(get_db),
+):
+    await _services.delete_category(category_id=category_id, _db=_db)
+    
+    return {"Message":"Category deleted"}

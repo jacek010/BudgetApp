@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { ReloadContext } from '../context/ReloadContext';
+
 import { useTranslation } from "react-i18next";
 import ErrorMessage from "./ErrorMessage";
+import Categories from "./Categories";
 
 const AdminPanel = ({token})=>{
     const {i18n, t} = useTranslation();
+
+    const {reload, triggerReload} = useContext(ReloadContext);
 
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -17,6 +23,10 @@ const AdminPanel = ({token})=>{
     const [newCategoryName, setNewCategoryName] = useState("");
     const [newCategoryDescription, setNewCategoryDescription] = useState("");
     const [newCategoryColor, setNewCategoryColor] = useState("is-black");
+
+    const [categoryName, setCategoryName] = useState("");
+    const [categoryId, setCategoryId] = useState(null);
+    const [categoryColor, setCategoryColor] = useState("");
 
 
     const getUser = async() =>{
@@ -49,6 +59,24 @@ const AdminPanel = ({token})=>{
           .then(response => response.json())
           .then(data => {
             setBudgetName(data.budget_info.budget_name)
+          })
+          .catch(error => {
+            console.error(error);
+        });
+    };
+
+    const getCategory = async() =>{
+        fetch(`/api/categories/${categoryName}`, {
+            method: "GET",
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'accept': 'application/json',
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            setCategoryId(data.category_id);
+            setCategoryColor(data.category_color);
           })
           .catch(error => {
             console.error(error);
@@ -98,7 +126,37 @@ const AdminPanel = ({token})=>{
     };
 
     const addCategory = async() =>{
-        
+        fetch(`/api/categories`, {
+            method: "POST",
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'accept': 'application/json',
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ category_name: newCategoryName, 
+                category_description: newCategoryDescription, 
+                category_color: newCategoryColor
+            }),
+          })
+          .then(response => response.json())
+          .catch(error => {
+            console.error(error);
+        });
+    };
+
+    const deleteCategory = async() =>{
+        fetch(`/api/admin/delete_category/${categoryId}`, {
+            method: "DELETE",
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'accept': 'application/json',
+            },
+          })
+          .then(response => response.json())
+          .catch(error => {
+            console.error(error);
+        });
+        triggerReload();
     };
 
     const handleGetUser = () => {
@@ -107,6 +165,12 @@ const AdminPanel = ({token})=>{
 
     const handleGetBudget = () => {
         getBudget();
+    };
+
+    const handleGetCategory = () => {
+        if(categoryName!=="UNCATEGORIZED"){
+            getCategory();
+        }
     };
 
     const handleDeleteUser = () => {
@@ -150,6 +214,16 @@ const AdminPanel = ({token})=>{
         }
     };
 
+    const handleDeleteCategory= () => {
+        if(categoryId){
+            deleteCategory();
+
+            setCategoryName("");
+            setCategoryId(null);
+            setCategoryColor("");
+        }
+    };
+
     return(
         <>
             <ErrorMessage message={errorMessage}/>
@@ -163,7 +237,7 @@ const AdminPanel = ({token})=>{
                                 <input type="email" placeholder={t("email_placeholder")} value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
                             </div>
                         </div>
-                        <button className="button is-warning" onClick={handleGetUser}>Get user</button>
+                        <button className="button is-info" onClick={handleGetUser}>Get user</button>
                     </div>
                     <div className="column box">
                         <h1 className="title is-5">ID</h1>
@@ -174,9 +248,9 @@ const AdminPanel = ({token})=>{
                         <h1 className="title is-6">{userSurname}</h1>
                     </div>
                 </div>
-                <button className="button is-primary is-fullwidth" onClick={handleDeleteUser}>{t("button_admin_delete_user")}</button>
+                <button className="button is-danger is-fullwidth" onClick={handleDeleteUser}>{t("button_admin_delete_user")}</button>
                 <br/>
-                <button className="button is-primary is-fullwidth" onClick={handleDetachUser}>{t("button_admin_detach_user")}</button>
+                <button className="button is-warning is-fullwidth" onClick={handleDetachUser}>{t("button_admin_detach_user")}</button>
             </div>
 
             <div className="box">
@@ -189,7 +263,7 @@ const AdminPanel = ({token})=>{
                                 <input type="number" placeholder={t("budget_id_placeholder")} value={budgetId} onChange={(e)=>setBudgetId(e.target.value)} className="input" required />
                             </div>
                         </div>
-                        <button className="button is-warning" onClick={handleGetBudget}>Get budget</button>
+                        <button className="button is-info" onClick={handleGetBudget}>Get budget</button>
                     </div>
                     <div className="column box">
                         <h1 className="title is-5">{t("budget_id")}</h1>
@@ -198,7 +272,7 @@ const AdminPanel = ({token})=>{
                         <h1 className="title is-6">{budgetName}</h1>
                     </div>
                 </div>
-                <button className="button is-primary is-fullwidth" onClick={handleDeleteBudget}>{t("button_admin_delete_budget")}</button>
+                <button className="button is-danger is-fullwidth" onClick={handleDeleteBudget}>{t("button_admin_delete_budget")}</button>
             </div>
 
             <div className="box">
@@ -233,12 +307,32 @@ const AdminPanel = ({token})=>{
                         </div>
                     </div>
                     <br />
-                    <button className="button is-fullwidth is-primary" onClick={handleAddCategory}>Add category</button>
+                    <button className="button is-fullwidth is-success" onClick={handleAddCategory}>Add category</button>
                 </div>
                 <div className="box">
                     <p className="title is-5 has-text-centered">Delete category</p>
+                    <div className="columns">
+                        <div className="column box">
+                            <div className="field">
+                                <label className="label">Category name</label>
+                                <div className="control">
+                                    <input type="text" placeholder="Enter category name" value={categoryName} onChange={(e)=>setCategoryName(e.target.value)} className="input" required />
+                                </div>
+                            </div>
+                            <button className="button is-info" onClick={handleGetCategory}>Get category</button>
+                        </div>
+                        <div className="column box">
+                            <h1 className="title is-5">Category ID</h1>
+                            <h1 className="title is-6">{categoryId}</h1>
+                            <h1 className="title is-5">Category color</h1>
+                            <h1 className={`title is-6 ${categoryColor}`}>{categoryColor}</h1>
+                        </div>
+                    </div>
+                    <button className="button is-danger is-fullwidth" onClick={handleDeleteCategory}>Delete category {categoryId?(categoryName):null}</button>
                 </div>
             </div>
+
+            <Categories token={token}/>
         </>
     );
 };
