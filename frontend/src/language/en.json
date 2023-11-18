@@ -153,10 +153,35 @@
     "admin_delete_detach_user_account_title":"Delete or detach user account",
     "admin_delete_budget_title":"Delete budget",
     "admin_edit_categories_title":"Edit categories",
+    "admin_add_category_title":"Add category",
+    "admin_delete_category_title":"Delete category",
 
+    "button_admin_get_user": "Get user",
     "button_admin_delete_user": "Delete user",
     "button_admin_detach_user": "Detach user from budget",
-    "button_admin_delete_budget": "Delete budget"
+    "button_admin_get_budget": "Get budget",
+    "button_admin_delete_budget": "Delete budget",
 
+    
+    "button_admin_add_category": "Add category",
+    "button_admin_get_category": "Get category",
+    "button_admin_delete_category": "Delete category",
+
+    "category_name": "Category name",
+    "category_name_placeholder": "Enter category name",
+    "category_description": "Category description",
+    "category_description_placeholder": "Enter category description",
+    "category_id": "Category ID",
+    "category_color": "Category color",
+
+    "color_black":"Black",
+    "color_dark":"Dark",
+    "color_turquise":"Turquise",
+    "color_blue":"Blue",
+    "color_cyan":"Cyan",
+    "color_green":"Green",
+    "color_yellow":"Yellow",
+    "color_red":"Red"
+    
 
 }

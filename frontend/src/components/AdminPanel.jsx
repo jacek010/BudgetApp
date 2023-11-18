@@ -237,7 +237,7 @@ const AdminPanel = ({token})=>{
                                 <input type="email" placeholder={t("email_placeholder")} value={email} onChange={(e)=>setEmail(e.target.value)} className="input" required />
                             </div>
                         </div>
-                        <button className="button is-info" onClick={handleGetUser}>Get user</button>
+                        <button className="button is-info" onClick={handleGetUser}>{t("button_admin_get_user")}</button>
                     </div>
                     <div className="column box">
                         <h1 className="title is-5">ID</h1>
@@ -263,7 +263,7 @@ const AdminPanel = ({token})=>{
                                 <input type="number" placeholder={t("budget_id_placeholder")} value={budgetId} onChange={(e)=>setBudgetId(e.target.value)} className="input" required />
                             </div>
                         </div>
-                        <button className="button is-info" onClick={handleGetBudget}>Get budget</button>
+                        <button className="button is-info" onClick={handleGetBudget}>{t("button_admin_get_budget")}</button>
                     </div>
                     <div className="column box">
                         <h1 className="title is-5">{t("budget_id")}</h1>
@@ -278,57 +278,57 @@ const AdminPanel = ({token})=>{
             <div className="box">
                 <p className="title has-text-centered">{t("admin_edit_categories_title")}</p>
                 <div className="box">
-                    <p className="title is-5 has-text-centered">Add category</p>
+                    <p className="title is-5 has-text-centered">{t("admin_add_category_title")}</p>
                     <div className="field">
-                        <label className="label">Category name</label>
+                        <label className="label">{t("category_name")}</label>
                         <div className="control">
-                            <input type="text" className="input" placeholder="Enter category name" value={newCategoryName} onChange={(e)=>setNewCategoryName(e.target.value)} required/>
+                            <input type="text" className="input" placeholder={t("category_name_placeholder")} value={newCategoryName} onChange={(e)=>setNewCategoryName(e.target.value)} required/>
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Category description</label>
+                        <label className="label">{t("category_description")}</label>
                         <div className="control">
-                            <textarea type="textarea" className="input" placeholder="Enter category description" value={newCategoryDescription} onChange={(e)=>setNewCategoryDescription(e.target.value)} required/>
+                            <textarea type="textarea" className="input" placeholder={t("category_description_placeholder")} value={newCategoryDescription} onChange={(e)=>setNewCategoryDescription(e.target.value)} required/>
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Category color</label>
+                        <label className="label">{t("category_color")}</label>
                         <div className="control">
                             <select className={`button is-fullwidth ${newCategoryColor}`} required value={newCategoryColor} onChange={(e)=>setNewCategoryColor(e.target.value)}>
-                                <option value="is-black">Black</option>
-                                <option value="is-dark">Dark</option>
-                                <option value="is-primary">Turquise</option>
-                                <option value="is-link">Blue</option>
-                                <option value="is-info">Cyan</option>
-                                <option value="is-success">Green</option>
-                                <option value="is-warning">Yellow</option>
-                                <option value="is-danger">Red</option>
+                                <option value="is-black">{t("color_black")}</option>
+                                <option value="is-dark">{t("color_dark")}</option>
+                                <option value="is-primary">{t("color_turquise")}</option>
+                                <option value="is-link">{t("color_blue")}</option>
+                                <option value="is-info">{t("color_cyan")}</option>
+                                <option value="is-success">{t("color_green")}</option>
+                                <option value="is-warning">{t("color_yellow")}</option>
+                                <option value="is-danger">{t("color_red")}</option>
                             </select>
                         </div>
                     </div>
                     <br />
-                    <button className="button is-fullwidth is-success" onClick={handleAddCategory}>Add category</button>
+                    <button className="button is-fullwidth is-success" onClick={handleAddCategory}>{t("button_admin_add_category")}</button>
                 </div>
                 <div className="box">
-                    <p className="title is-5 has-text-centered">Delete category</p>
+                    <p className="title is-5 has-text-centered">{t("admin_delete_category_title")}</p>
                     <div className="columns">
                         <div className="column box">
                             <div className="field">
-                                <label className="label">Category name</label>
+                                <label className="label">{t("category_name")}</label>
                                 <div className="control">
-                                    <input type="text" placeholder="Enter category name" value={categoryName} onChange={(e)=>setCategoryName(e.target.value)} className="input" required />
+                                    <input type="text" placeholder={t("category_name_placeholder")} value={categoryName} onChange={(e)=>setCategoryName(e.target.value)} className="input" required />
                                 </div>
                             </div>
-                            <button className="button is-info" onClick={handleGetCategory}>Get category</button>
+                            <button className="button is-info" onClick={handleGetCategory}>{t("button_admin_get_category")}</button>
                         </div>
                         <div className="column box">
-                            <h1 className="title is-5">Category ID</h1>
+                            <h1 className="title is-5">{t("category_id")}</h1>
                             <h1 className="title is-6">{categoryId}</h1>
-                            <h1 className="title is-5">Category color</h1>
+                            <h1 className="title is-5">{t("category_color")}</h1>
                             <h1 className={`title is-6 ${categoryColor}`}>{categoryColor}</h1>
                         </div>
                     </div>
-                    <button className="button is-danger is-fullwidth" onClick={handleDeleteCategory}>Delete category {categoryId?(categoryName):null}</button>
+                    <button className="button is-danger is-fullwidth" onClick={handleDeleteCategory}>{t("button_admin_delete_category")} {categoryId?(t("categories_"+categoryName)):null}</button>
                 </div>
             </div>
 
