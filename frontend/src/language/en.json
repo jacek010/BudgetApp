@@ -150,13 +150,12 @@
     
 
 
-    "admin_delete_user_account_title":"Delete user account",
-    "admin_detach_user_from_budget_title":"Detach user from budget",
+    "admin_delete_detach_user_account_title":"Delete or detach user account",
     "admin_delete_budget_title":"Delete budget",
     "admin_edit_categories_title":"Edit categories",
 
     "button_admin_delete_user": "Delete user",
-    "button_admin_detach_user": "Detach user",
+    "button_admin_detach_user": "Detach user from budget",
     "button_admin_delete_budget": "Delete budget"
 
 

@@ -448,4 +448,18 @@ async def change_operations_user(old_user_id: int, budget_id: int, _db: Session)
         _db.refresh(operation)
 
 async def delete_budget(budget_id:int, _db:Session):
-    pass
+    users_to_update = _db.query(_models.User).filter(_models.User.budget_id == budget_id)
+
+    users_to_update.update({ _models.User.budget_id: 0 })
+    _db.commit()
+
+    for user in users_to_update.all():
+        _db.refresh(user)
+        
+    budget_to_delete = _db.query(_models.Budget).filter(_models.Budget.budget_id == budget_id).first()
+    
+    if not budget_to_delete:
+        raise _fastapi.HTTPException(status_code=404, detail="Budget with this ID does not exist")
+        
+    _db.delete(budget_to_delete)
+    _db.commit()

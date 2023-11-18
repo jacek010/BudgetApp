@@ -51,7 +51,7 @@ async def generate_token(
 async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     return user
 
-@app.get("/api/users/get_by_email/{email}", tags=["users", "admin"])
+@app.get("/api/users/get_by_email/{email}", tags=["user", "admin"])
 async def get_user_by_email(
     email:str,
     _db: Session = _fastapi.Depends(get_db),
@@ -299,3 +299,13 @@ async def detach_user(
     await _services.detach_user(user_id=user_id, _db=_db)
     
     return {"Message":"User detached successfully"}
+
+@app.delete("/api/admin/delete_budget/{budget_id}", tags=["admin", "budget"])
+async def delete_budget(
+    budget_id: int,
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    _db: Session = _fastapi.Depends(get_db),
+):
+    await _services.delete_budget(budget_id=budget_id, _db=_db)
+    
+    return {"Message":"Budget deleted successfully"}
