@@ -91,8 +91,8 @@ const Categories = ({ token })=>{
                            </ul>
                             {activeCategory===category.category_id ? (
                                 <button key={category.category_id} className="button mr-2 is-white" onClick={() => handleAddSubcategory( {id:category.category_id, name:category.category_name})}>
-                                        {t("categories_add_subcategory")}
-                                    </button>
+                                    {t("categories_add_subcategory")}
+                                </button>
                            ):null}
                            </div>
                        </li>

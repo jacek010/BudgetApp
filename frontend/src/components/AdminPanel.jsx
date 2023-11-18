@@ -14,6 +14,10 @@ const AdminPanel = ({token})=>{
     const [userName, setUserName] = useState("");
     const [userSurname, setUserSurname] = useState("");
 
+    const [newCategoryName, setNewCategoryName] = useState("");
+    const [newCategoryDescription, setNewCategoryDescription] = useState("");
+    const [newCategoryColor, setNewCategoryColor] = useState("is-black");
+
 
     const getUser = async() =>{
         fetch(`/api/users/get_by_email/${email}`, {
@@ -93,6 +97,10 @@ const AdminPanel = ({token})=>{
         });
     };
 
+    const addCategory = async() =>{
+        
+    };
+
     const handleGetUser = () => {
         getUser();
     };
@@ -130,8 +138,16 @@ const AdminPanel = ({token})=>{
             setBudgetId(null);
             setBudgetName("");
         }
+    };
 
-        
+    const handleAddCategory = () => {
+        if(newCategoryName && newCategoryDescription && newCategoryColor){
+            addCategory();
+
+            setNewCategoryName("");
+            setNewCategoryDescription("");
+            setNewCategoryColor("is-black");
+        }
     };
 
     return(
@@ -187,6 +203,41 @@ const AdminPanel = ({token})=>{
 
             <div className="box">
                 <p className="title has-text-centered">{t("admin_edit_categories_title")}</p>
+                <div className="box">
+                    <p className="title is-5 has-text-centered">Add category</p>
+                    <div className="field">
+                        <label className="label">Category name</label>
+                        <div className="control">
+                            <input type="text" className="input" placeholder="Enter category name" value={newCategoryName} onChange={(e)=>setNewCategoryName(e.target.value)} required/>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Category description</label>
+                        <div className="control">
+                            <textarea type="textarea" className="input" placeholder="Enter category description" value={newCategoryDescription} onChange={(e)=>setNewCategoryDescription(e.target.value)} required/>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Category color</label>
+                        <div className="control">
+                            <select className={`button is-fullwidth ${newCategoryColor}`} required value={newCategoryColor} onChange={(e)=>setNewCategoryColor(e.target.value)}>
+                                <option value="is-black">Black</option>
+                                <option value="is-dark">Dark</option>
+                                <option value="is-primary">Turquise</option>
+                                <option value="is-link">Blue</option>
+                                <option value="is-info">Cyan</option>
+                                <option value="is-success">Green</option>
+                                <option value="is-warning">Yellow</option>
+                                <option value="is-danger">Red</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <button className="button is-fullwidth is-primary" onClick={handleAddCategory}>Add category</button>
+                </div>
+                <div className="box">
+                    <p className="title is-5 has-text-centered">Delete category</p>
+                </div>
             </div>
         </>
     );
