@@ -15,6 +15,7 @@ const Categories = ({ token })=>{
     const [subcategories, setSubcategories] = useState([]);
 
     const [activeModal, setActiveModal] = useState(false);
+    const [activeCategory, setActiveCategory] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
     const [categoryName, setCategoryName] = useState(null);
 
@@ -36,6 +37,7 @@ const Categories = ({ token })=>{
 
 
        const handleCategoryClick = (categoryId) => {
+            setActiveCategory(categoryId);
            fetch(`/api/subcategories/${categoryId}`, {
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -87,7 +89,11 @@ const Categories = ({ token })=>{
                                    </li>
                                ))}
                            </ul>
-                           <button className="button mr-2 is-white" onClick={() => handleAddSubcategory( {id:category.category_id, name:category.category_name})}>{t("categories_add_subcategory")}</button>
+                            {activeCategory===category.category_id ? (
+                                <button key={category.category_id} className="button mr-2 is-white" onClick={() => handleAddSubcategory( {id:category.category_id, name:category.category_name})}>
+                                        {t("categories_add_subcategory")}
+                                    </button>
+                           ):null}
                            </div>
                        </li>
                    ))}
