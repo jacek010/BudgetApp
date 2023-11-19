@@ -279,34 +279,35 @@ const AdminPanel = ({token})=>{
                 <p className="title has-text-centered">{t("admin_edit_categories_title")}</p>
                 <div className="box">
                     <p className="title is-5 has-text-centered">{t("admin_add_category_title")}</p>
-                    <div className="field">
-                        <label className="label">{t("category_name")}</label>
-                        <div className="control">
-                            <input type="text" className="input" placeholder={t("category_name_placeholder")} value={newCategoryName} onChange={(e)=>setNewCategoryName(e.target.value)} required/>
+                    <div className="box">
+                        <div className="field">
+                            <label className="label">{t("category_name")}</label>
+                            <div className="control">
+                                <input type="text" className="input" placeholder={t("category_name_placeholder")} value={newCategoryName} onChange={(e)=>setNewCategoryName(e.target.value)} required/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">{t("category_description")}</label>
+                            <div className="control">
+                                <textarea type="textarea" className="input" placeholder={t("category_description_placeholder")} value={newCategoryDescription} onChange={(e)=>setNewCategoryDescription(e.target.value)} required/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">{t("category_color")}</label>
+                            <div className="control">
+                                <select className={`button is-fullwidth ${newCategoryColor}`} required value={newCategoryColor} onChange={(e)=>setNewCategoryColor(e.target.value)}>
+                                    <option value="is-black">{t("color_black")}</option>
+                                    <option value="is-dark">{t("color_dark")}</option>
+                                    <option value="is-primary">{t("color_turquise")}</option>
+                                    <option value="is-link">{t("color_blue")}</option>
+                                    <option value="is-info">{t("color_cyan")}</option>
+                                    <option value="is-success">{t("color_green")}</option>
+                                    <option value="is-warning">{t("color_yellow")}</option>
+                                    <option value="is-danger">{t("color_red")}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div className="field">
-                        <label className="label">{t("category_description")}</label>
-                        <div className="control">
-                            <textarea type="textarea" className="input" placeholder={t("category_description_placeholder")} value={newCategoryDescription} onChange={(e)=>setNewCategoryDescription(e.target.value)} required/>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <label className="label">{t("category_color")}</label>
-                        <div className="control">
-                            <select className={`button is-fullwidth ${newCategoryColor}`} required value={newCategoryColor} onChange={(e)=>setNewCategoryColor(e.target.value)}>
-                                <option value="is-black">{t("color_black")}</option>
-                                <option value="is-dark">{t("color_dark")}</option>
-                                <option value="is-primary">{t("color_turquise")}</option>
-                                <option value="is-link">{t("color_blue")}</option>
-                                <option value="is-info">{t("color_cyan")}</option>
-                                <option value="is-success">{t("color_green")}</option>
-                                <option value="is-warning">{t("color_yellow")}</option>
-                                <option value="is-danger">{t("color_red")}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br />
                     <button className="button is-fullwidth is-success" onClick={handleAddCategory}>{t("button_admin_add_category")}</button>
                 </div>
                 <div className="box">
@@ -331,8 +332,10 @@ const AdminPanel = ({token})=>{
                     <button className="button is-danger is-fullwidth" onClick={handleDeleteCategory}>{t("button_admin_delete_category")} {categoryId?(t("categories_"+categoryName)):null}</button>
                 </div>
             </div>
-
-            <Categories token={token}/>
+            <div className="box">
+                <Categories token={token}/>
+            </div>
+            
         </>
     );
 };
