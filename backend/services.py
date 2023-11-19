@@ -412,3 +412,104 @@ async def set_reminder_to_next_cycle(
     
     return _schemas.Reminder.model_validate(reminder_db)
 
+
+async def delete_user(user_id:int, _db:Session):
+    user_to_delete = _db.query(_models.User).filter(_models.User.user_id==user_id).first()
+    if(user_to_delete.budget_id != 0):
+        await change_operations_user(user_to_delete.user_id, user_to_delete.budget_id, _db)
+    
+    _db.delete(user_to_delete)
+    _db.commit()
+    
+async def detach_user(user_id:int, _db:Session):
+    user_to_detach = _db.query(_models.User).filter(_models.User.user_id==user_id).first()
+    
+    user_to_detach.budget_id = 0
+    
+    _db.commit()
+    _db.refresh(user_to_detach)
+
+async def change_operations_user(old_user_id: int, budget_id: int, _db: Session):
+    new_user = _db.query(_models.User).filter(
+        _models.User.budget_id == budget_id,
+        _models.User.user_id != old_user_id
+    ).first()
+
+    if new_user is None:
+        raise _fastapi.HTTPException(status_code=404, detail="No other user in this budget")
+
+    operations_to_update = _db.query(_models.Operation).filter(
+        _models.Operation.user_id == old_user_id,
+        _models.Operation.budget_id == budget_id
+    )
+    operations_to_update.update({ _models.Operation.user_id: new_user.user_id })
+    _db.commit()
+    for operation in operations_to_update.all():
+        _db.refresh(operation)
+
+async def delete_budget(budget_id:int, _db:Session):
+    users_to_update = _db.query(_models.User).filter(_models.User.budget_id == budget_id)
+
+    users_to_update.update({ _models.User.budget_id: 0 })
+    _db.commit()
+
+    for user in users_to_update.all():
+        _db.refresh(user)
+        
+    budget_to_delete = _db.query(_models.Budget).filter(_models.Budget.budget_id == budget_id).first()
+    
+    if not budget_to_delete:
+        raise _fastapi.HTTPException(status_code=404, detail="Budget with this ID does not exist")
+        
+    _db.delete(budget_to_delete)
+    _db.commit()
+    
+
+async def create_category(category:_schemas.CategoryCreate, _db:Session):
+    new_category = _models.Category(
+        category_name=category.category_name,
+        category_description=category.category_description,
+        category_color=category.category_color
+    )
+    
+    _db.add(new_category)
+    _db.commit()
+    _db.refresh(new_category)
+
+    return new_category
+
+async def get_category(category_name:str, _db:Session):
+    category = _db.query(_models.Category).filter(_models.Category.category_name==category_name).first()
+    return category
+
+async def delete_category(category_id:int, _db:Session):
+    subcategories_to_delete = _db.query(_models.Subcategory).filter(_models.Subcategory.category_id==category_id).all()
+    
+    for subcategory in subcategories_to_delete:
+        await delete_subcategory(subcategory.subcategory_id, _db)
+        
+    category_to_delete = _db.query(_models.Category).filter(_models.Category.category_id==category_id).first()
+    if not category_to_delete:
+            raise _fastapi.HTTPException(status_code=404, detail="Category with this ID does not exist")
+
+    _db.delete(category_to_delete)
+    _db.commit() 
+        
+    
+async def delete_subcategory(subcategory_id:int, _db:Session):
+    operations_to_update = _db.query(_models.Operation).filter(_models.Operation.subcategory_id==subcategory_id)
+    
+    for operation in operations_to_update:
+        await uncategorize_operation(operation.operation_id, _db)
+    
+    subcategory_to_delete = _db.query(_models.Subcategory).filter(_models.Subcategory.subcategory_id==subcategory_id).first()  
+    _db.delete(subcategory_to_delete)
+    _db.commit()
+
+async def uncategorize_operation(operation_id:int, _db:Session):
+    operation_to_update = _db.query(_models.Operation).filter(_models.Operation.operation_id==operation_id)
+    
+    operation_to_update.update({ _models.Operation.subcategory_id: 0 })
+    
+    _db.commit()
+    _db.refresh(operation_to_update)

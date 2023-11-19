@@ -70,8 +70,8 @@
 
     "new_budget_create_title":"Create new fresh budget",
     "existing_budget_join_title":"Join to an existing budget",
-    "budget_id":"Budget id",
-    "budget_id_placeholder":"Enter budget id",
+    "budget_id":"Budget ID",
+    "budget_id_placeholder":"Enter budget ID",
     "password_placeholder":"Enter password",
     "budget_name_placeholder":"Enter budget name",
     "budget_description_placeholder":"Enter budget description",
@@ -81,7 +81,7 @@
 
 
     "error_udpate_budget":"Something went wrong when updating budget",
-    "error_password_not_matching":"Ensure that the password match and greater than 5 characters",
+    "error_password_not_matching":"Ensure that the password match and it's longer than 5 characters",
     "error_homepage_selector": "Something wrong happens during switching the tabs. Please reload",
     "error_get_operations":"Something went wrong. Couldn't load the operations",
     "error_get_operation": "Could not get the operation",
@@ -102,7 +102,7 @@
     "operation_modal_title_update": "Update operation",
     "operation_modal_title_add": "Add operation",
     "operation_name":"Operation name",
-    "operation_name_placeholder":"Enter peration name",
+    "operation_name_placeholder":"Enter operation name",
     "value":"Value",
     "value_placeholder":"Enter value",
     "all":"All",
@@ -143,10 +143,45 @@
     "subcategory_description_placeholder":"Enter subcategory description",
 
     "user_name": "Name",
-    "user_name_placeholder": "Name",
+    "user_name_placeholder": "Enter name",
     "user_surname": "Surname",
-    "user_surname_placeholder": "Surname",
-    "user_modal_title": "Edit user details"
+    "user_surname_placeholder": "Enter surname",
+    "user_modal_title": "Edit user details",
+    
+
+
+    "admin_delete_detach_user_account_title":"Delete or detach user account",
+    "admin_delete_budget_title":"Delete budget",
+    "admin_edit_categories_title":"Edit categories",
+    "admin_add_category_title":"Add category",
+    "admin_delete_category_title":"Delete category",
+
+    "button_admin_get_user": "Get user",
+    "button_admin_delete_user": "Delete user",
+    "button_admin_detach_user": "Detach user from budget",
+    "button_admin_get_budget": "Get budget",
+    "button_admin_delete_budget": "Delete budget",
+
+    
+    "button_admin_add_category": "Add category",
+    "button_admin_get_category": "Get category",
+    "button_admin_delete_category": "Delete category",
+
+    "category_name": "Category name",
+    "category_name_placeholder": "Enter category name",
+    "category_description": "Category description",
+    "category_description_placeholder": "Enter category description",
+    "category_id": "Category ID",
+    "category_color": "Category color",
+
+    "color_black":"Black",
+    "color_dark":"Dark",
+    "color_turquise":"Turquise",
+    "color_blue":"Blue",
+    "color_cyan":"Cyan",
+    "color_green":"Green",
+    "color_yellow":"Yellow",
+    "color_red":"Red"
     
 
 }

@@ -10,11 +10,13 @@ import Reminders from "./Reminders";
 import UserDetails from "./UserDetails";
 import { useTranslation } from "react-i18next";
 import ErrorMessage from "./ErrorMessage";
+import AdminPanel from "./AdminPanel";
 
 const HomePage = ({currentTab})=>{
     const {i18n, t} = useTranslation();
 
     const [budgetId, setBudgetId] = useState('');
+    const [userId, setUserId] = useState('');
     const [token] = useContext(UserContext);
     
 
@@ -27,7 +29,10 @@ const HomePage = ({currentTab})=>{
       },
     })
     .then(response => response.json())
-    .then(data => setBudgetId(data.budget_id))
+    .then(data =>{
+       setBudgetId(data.budget_id);
+       setUserId(data.user_id);
+    })
     .catch(error => console.error(error));
   }, [token]);
 
@@ -51,6 +56,7 @@ const HomePage = ({currentTab})=>{
     return(
         <div className="homePage">
             {
+              userId ?(
                 budgetId ? (
                     <>  
                         {renderTabs()}
@@ -58,6 +64,9 @@ const HomePage = ({currentTab})=>{
                 ): (
                     <LinkBudget/>
                 )
+              ):(
+                <AdminPanel token={token}/>
+              )
             }
         </div>
     );
