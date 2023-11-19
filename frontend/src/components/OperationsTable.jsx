@@ -250,7 +250,7 @@ const OperationsTable = () => {
                     </div>
                     <div className="column has-text-centered">
                         <div className="box">
-                            <p className='title is-5 has-text-danger'>By categories</p>
+                            <p className='title is-5 has-text-danger'>{t("by_categories")}</p>
                             {Object.entries(expensesSums).map(([category_name, value]) => (
                                 <div key={category_name}>
                                     {t("categories_"+category_name)}: {parseFloat(-value).toFixed(2)}

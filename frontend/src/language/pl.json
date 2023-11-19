@@ -1,7 +1,187 @@
 {
-    "welcome_message": "Witaj w Budget App",
+    "welcome_message": "Witaj w aplikacji do zarządzania budżetem domowym",
 
     "header_welcome": "Witaj",
-    "logged_title": "Aplikacja do zarządzania budetem domowym",
-    "budget_summary": "podsumowanie budżetu"
+    "header_budget_details": "Szczegóły budżetu",
+    "header_categories": "Kategorie",
+    "header_budget_summary": "Podsumowanie budżetu",
+    "header_payment_reminders": "Przypomnienia o płatnościach",
+    "header_user_details": "Szczegóły o użytkowniku",
+    "header_logout": "Wyloguj się",
+    "header_language": "Język",
+    
+
+
+    "logged_title": "Aplikacja do zarządzania budżetem domowym",
+    "budget_name": "Nazwa budżetu",
+    "budget_description": "Opis budżetu",
+    "password": "Hasło",
+    "password_repeat": "Powtórz hasło",
+    "budget_password_subtitle": "Naciśnij, aby pokazać",
+    "budget_password_hide": "Ukryj",
+    "budget_password_show": "Pokaż",
+    "budget_password_hidden": "Hasło ukryte",
+    "budget_members": "Członkowie",
+    "budget_members_failure": "Nie można załadować członków budżetu",
+    "budget_change_details": "Zmień szczegóły",
+
+    
+    "budget_modal_edit_budget_details": "Edytuj szczegóły budżetu",
+    "budget_modal_budget_password": "Hasło",
+    
+
+    "button_update": "Aktualizuj",
+    "button_delete": "Usuń",
+    "button_cancel": "Anuluj",
+    "button_add": "Dodaj",
+    "button_join": "Dołącz",
+    "button_create_budget": "Stwórz budżet",
+    "button_login": "Zaloguj się",
+    "button_reset": "Resetuj",
+    "button_add_operation": "Dodaj operację",
+    "button_register": "Zarejestruj się",
+    "button_add_reminder": "Dodaj przypomnienie",
+    "button_done": "Wykonane",
+    "button_edit": "Edytuj",
+    "button_change_details": "Zmień szczegóły",
+
+
+    "budget_summary": "Podsumowanie",
+    "budget_summary_actual_amount": "Aktualne saldo",
+
+    "budget_balance": "Biland budżetu",
+    "from": " od ",
+    "to": " do ",
+
+    "incomes": "Przychody",
+    "expenses": "Wydatki",
+    "by_categories": "Według kategorii",
+
+    "categories_add_subcategory": "Dodaj podkategorię",
+    "categories_food": "Jedzenie",
+    "categories_entertainment": "Rozrywka",
+    "categories_transport": "Transport",
+    "categories_fees": "Opłaty",
+    "categories_studies": "Kształcenie",
+    "categories_inwestitions": "Inwestycje",
+    "categories_work": "Praca",
+
+    
+
+    "new_budget_create_title": "Stwórz nowy budżet",
+    "existing_budget_join_title": "Dołącz do istniejącego budżetu",
+    "budget_id": "ID budżetu",
+    "budget_id_placeholder": "Wpisz ID budżetu",
+    "password_placeholder": "Wpisz hasło",
+    "budget_name_placeholder": "Wpisz nazwę budżetu",
+    "budget_description_placeholder": "Podaj opis budżetu",
+
+    "email": "Adres email",
+    "email_placeholder": "Wpisz adres email",
+
+
+    "error_udpate_budget": "Coś poszło nie tak podczas aktualizowania budżetu",
+    "error_password_not_matching": "Upewnij się, że hasła są takie same oraz hasło jest dłuższe niż 5 znaków",
+    "error_homepage_selector": "Coś złego zdarzyło się podczas przełączania kart. Proszę załadować ponownie.",
+    "error_get_operations": "Coś poszło nie tak. Nie udało się wczytać operacji",
+    "error_get_operation": "Nie udało sie wczytać operacji",
+    "error_get_categories": "Nie udało się wczytać kategorii lub podkategorii",
+    "error_create_operation": "Coś poszło nie tak podczas dodawania operacji",
+    "error_update_operation": "Coś poszło nie tak podczas aktualizowania operacji",
+    "error_delete_operation": "Coś poszło nie tak podczas usuwania operacji",
+    "error_get_reminders": "Coś poszło nie tak. Nie udało się wczytać przypomnień",
+    "error_get_reminder": "Nie udało się wczytać przypomnienia",
+    "error_create_reminder": "Coś poszło nie tak podczas tworzenia przypomnienia",
+    "error_update_reminder": "Coś poszło nie tak podczas aktualizowania przypomnienia",
+    "error_done_reminder": "Coś poszło nie tak. Nie udało się oznaaczyć jako wykonane",
+    "error_cancel_reminder": "Coś poszło nie tak. Nie udało się anulować przypomnienia",
+    "error_add_subcategory": "Coś poszło nie tak. Nie udało się dodać podkategorii",
+    "error_update_user": "Coś poszło nie tak. Nie udało się zaktualizować szczegółów użytkownika",
+    
+
+    "operation_modal_title_update": "Aktualizuj operację",
+    "operation_modal_title_add": "Dodoaj operację",
+    "operation_name":"Nazwa operacji",
+    "operation_name_placeholder":"Wpisz nazwę operacji",
+    "value":"Wartość",
+    "value_placeholder":"Wpisz wartość",
+    "all":"Wszystko",
+    "income": "Przychód",
+    "expense": "Wydatek",
+    "date": "Data",
+    "date_placeholder": "Wpisz datę",
+    "category": "Kategoria",
+    "subcategory": "Podkategoria",
+    "user":"Użytkownik",
+    "actions": "Czynności",
+
+    "register_title": "Zarejestruj się",
+    "name": "Imię",
+    "name_placeholder": "Wpisz imię",
+    "surname": "Nazwisko",
+    "surname_placeholder": "Wpisz nazwisko",
+
+    "reminder_modal_title_update": "Aktualizuj przypomnienie",
+    "reminder_modal_title_add": "Dodaj przypomnienie",
+
+    "reminder_name": "Nazwa przypomnienia",
+    "reminder_name_placeholder": "Wpisz nazwę przypomnienia",
+    "reminder_description":"Opis przypomnienia",
+    "reminder_description_placeholder":"Podaj opis przypomnienia",
+    "repeat_after": "Powtórz po",
+    "repeat_cycle": "Przypomnij za",
+    "days": "Dni",
+    "months":"Miesiące",
+    "years": "Lata",
+
+    "description":"Opis",
+
+    "subcategory_modal_title": "Dodaj podkategorię do",
+    "subcategory_name": "Nazwa podkategorii",
+    "subcategory_name_placeholder": "Wpisz nazwę podkategorii",
+    "subcategory_description":"Opis podkategorii",
+    "subcategory_description_placeholder":"Podaj opis podkategorii",
+
+    "user_name": "Imię",
+    "user_name_placeholder": "Wpisz imię",
+    "user_surname": "Nazwisko",
+    "user_surname_placeholder": "Wpisz nazwisko",
+    "user_modal_title": "Edytuj szczegóły użytkownika",
+	
+	
+    "admin_delete_budget_title":"Usuń budżet",
+    "admin_edit_categories_title":"Edytuj kategorie",
+	"admin_delete_detach_user_account_title": "Usuń lub odwiąż konto użytkownika",
+    "admin_add_category_title":"Dodaj kategorię",
+    "admin_delete_category_title":"Usuń kategorię",
+
+    "button_admin_get_user": "Pobierz użytkownika",
+    "button_admin_delete_user": "Usuń użytkownika",
+    "button_admin_detach_user": "Odwiąż użytkownika od budżetu",
+    "button_admin_get_budget": "Pobierz budżet",
+    "button_admin_delete_budget": "Usuń budżet",
+
+    
+    "button_admin_add_category": "Dodaj kategorię",
+    "button_admin_get_category": "Pobierz kategorię",
+    "button_admin_delete_category": "Usuń kategorię",
+
+    "category_name": "Nazwa kategorii",
+    "category_name_placeholder": "Wpisz nazwę kategorii",
+    "category_description": "Opis kategorii",
+    "category_description_placeholder": "Podaj opis kategorii",
+    "category_id": "ID kategorii",
+    "category_color": "Kolor kategorii",
+
+    "color_black":"Czarny",
+    "color_dark":"Ciemny",
+    "color_turquise":"Turkusowy",
+    "color_blue":"Niebieski",
+    "color_cyan":"Morski",
+    "color_green":"Zielony",
+    "color_yellow":"Żółty",
+    "color_red":"Czerwony"
+
+    
+
 }
