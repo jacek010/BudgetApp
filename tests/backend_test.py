@@ -31,8 +31,8 @@ def test_get_current_user():
 @pytest.mark.parametrize(
     "email,expected_status_code",
     [
-        ("testuser@example.com", 200),  # replace with an email of an existing user
-        ("nonexistinguser@example.com", 404),  # replace with an email of a non-existing user
+        ("testuser@example.com", 200),
+        ("nonexistinguser@example.com", 404),
     ],
 )
 def test_get_user_by_email(email, expected_status_code):
@@ -54,13 +54,13 @@ def test_update_user():
     
 def test_delete_user():
     headers={"Authorization": f"Bearer {token}"}
-    # Get the user's ID
+
     response = requests.get('http://localhost:8000/api/users/get_by_email/testuser@example.com', headers=headers)
     assert response.status_code == 200
     user = response.json()
     user_id = user['user_id']
 
-    # Delete the user
+
     response = requests.delete(f'http://localhost:8000/api/admin/delete_user/{user_id}', headers=headers)
     assert response.status_code == 200
     assert response.json() == {"Message":"User deleted successfully"}
