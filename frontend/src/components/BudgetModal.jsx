@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 const BudgetModal = ({ active, handleModal, token, budgetInfo}) => {
     const {i18n, t} = useTranslation();
 
-    const [budgetName, setBudgetName] = useState('');
-    const [budgetDescription, setBudgetDescription] = useState('');
-    const [budgetPassword, setBudgetPassword] = useState('');
-    const [budgetPasswordRepeat, setBudgetPasswordRepeat] = useState('');
+    const [budgetName, setBudgetName] = useState(budgetInfo?.budget_name || '');
+    const [budgetDescription, setBudgetDescription] = useState(budgetInfo?.budget_description || '');
+    const [budgetPassword, setBudgetPassword] = useState(budgetInfo?.budget_encrypted_password || '');
+    const [budgetPasswordRepeat, setBudgetPasswordRepeat] = useState(budgetInfo?.budget_encrypted_password || '');
 
     const [errorMessage, setErrorMessage] = useState('');
 
