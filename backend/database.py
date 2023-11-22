@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
    
-engine = create_engine('mysql+pymysql://root:root_password@localhost:3306/budget_db')
+engine = create_engine('mysql+pymysql://root:root_password@db:3306/budget_db')
 session = Session(engine)
 
 def get_db():
