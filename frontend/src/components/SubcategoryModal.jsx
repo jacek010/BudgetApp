@@ -54,7 +54,7 @@ const SubcategoryModal = ({ active, handleModal, token, categoryId, categoryName
             <div className="modal-card">
                 <header className="modal-card-head has-background-primary-light">
                     <h1 className="modal-card-title">
-                        {t("subcategory_modal_title")} "{categoryName}"
+                        {t("subcategory_modal_title")} "{t("categories_"+categoryName)}"
                     </h1>
                 </header>
                 <section className="modal-card-body">

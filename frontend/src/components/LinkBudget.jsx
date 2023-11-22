@@ -64,13 +64,13 @@ const NewBudget = ()=>{
                 </div>
             </div>
             <div className="field">
-                <label className="label">{t("budget_modal_budget_password")}</label>
+                <label className="label">{t("password")}</label>
                 <div className="control">
                     <input type="password" placeholder={t("password_placeholder")} value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
                 </div>
             </div>
             <div className="field">
-                <label className="label">{t("budget_modal_repeat_budget_password")}</label>
+                <label className="label">{t("password_repeat")}</label>
                 <div className="control">
                     <input type="password" placeholder={t("password_placeholder")} value={confirmationPassword} onChange={(e)=>setConfirmationPassword(e.target.value)} className="input" required />
                 </div>
@@ -128,7 +128,7 @@ const ExistingBudget = () =>{
                 </div>
             </div>
             <div className="field">
-                <label className="label">{t("budget_password")}</label>
+                <label className="label">{t("password")}</label>
                 <div className="control">
                     <input type="password" placeholder={t("password_placeholder")} value={password} onChange={(e)=>setPassword(e.target.value)} className="input" required />
                 </div>

@@ -22,7 +22,7 @@ describe('Login component', () => {
   
       expect(getByPlaceholderText('email_placeholder')).toBeInTheDocument();
       expect(getByPlaceholderText('password_placeholder')).toBeInTheDocument();
-      expect(getAllByText('button_login')[1]).toBeInTheDocument(); // select the button
+      expect(getAllByText('button_login')[1]).toBeInTheDocument();
     });
   
     it('calls setToken on form submit', async () => {
@@ -35,12 +35,10 @@ describe('Login component', () => {
           </UserContext.Provider>
         );
       
-        // Simulate a successful network response
         fetch.mockResponseOnce(JSON.stringify({ access_token: 'testToken' }));
       
         fireEvent.submit(getByPlaceholderText('email_placeholder').form);
       
-        // Wait for the promise to resolve
         await waitFor(() => expect(setToken).toHaveBeenCalledWith('testToken'));
     });
   });

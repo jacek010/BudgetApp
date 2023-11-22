@@ -6,7 +6,7 @@
     "header_categories": "Kategorie",
     "header_budget_summary": "Podsumowanie budżetu",
     "header_payment_reminders": "Przypomnienia o płatnościach",
-    "header_user_details": "Szczegóły o użytkowniku",
+    "header_user_details": "Szczegóły użytkownika",
     "header_logout": "Wyloguj się",
     "header_language": "Język",
     
@@ -49,7 +49,7 @@
     "budget_summary": "Podsumowanie",
     "budget_summary_actual_amount": "Aktualne saldo",
 
-    "budget_balance": "Biland budżetu",
+    "budget_balance": "Bilans budżetu",
     "from": " od ",
     "to": " do ",
 
@@ -100,7 +100,7 @@
     
 
     "operation_modal_title_update": "Aktualizuj operację",
-    "operation_modal_title_add": "Dodoaj operację",
+    "operation_modal_title_add": "Dodaj operację",
     "operation_name":"Nazwa operacji",
     "operation_name_placeholder":"Wpisz nazwę operacji",
     "value":"Wartość",
