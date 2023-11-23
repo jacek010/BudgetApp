@@ -1,4 +1,4 @@
-CREATE DATABASE budget_db;
+CREATE DATABASE IF NOT EXISTS budget_db CHARACTER SET utf8 COLLATE utf8_polish_ci;;
 USE budget_db;
 
 create table budgets
@@ -8,7 +8,7 @@ create table budgets
     Budget_name               varchar(30)   not null,
     Budget_description        varchar(255)  null,
     Budget_encrypted_password varchar(1024) not null
-);
+)CHARACTER SET utf8 COLLATE utf8_polish_ci;;
 
 create table categories
 (
@@ -19,7 +19,7 @@ create table categories
     Category_color       varchar(25) default 'is-dark' not null,
     constraint categories_pk
         unique (Category_name)
-);
+)CHARACTER SET utf8 COLLATE utf8_polish_ci;;
 
 create index categories_Category_name_index
     on categories (Category_name);
@@ -35,7 +35,7 @@ create table subcategories
         unique (Subcategory_name),
     constraint subcategories___fk
         foreign key (Category_id) references categories (Category_id)
-);
+)CHARACTER SET utf8 COLLATE utf8_polish_ci;;
 
 create table reminders
 (
@@ -53,7 +53,7 @@ create table reminders
         foreign key (Budget_id) references budgets (Budget_id),
     constraint reminders_subcategories_Subcategory_id_fk
         foreign key (Subcategory_id) references subcategories (Subcategory_id)
-);
+)CHARACTER SET utf8 COLLATE utf8_polish_ci;;
 
 create table users
 (
@@ -68,7 +68,7 @@ create table users
         unique (User_email),
     constraint users_ibfk_1
         foreign key (Budget_id) references budgets (Budget_id)
-);
+)CHARACTER SET utf8 COLLATE utf8_polish_ci;;
 
 create table operations
 (
@@ -86,7 +86,7 @@ create table operations
         foreign key (User_id) references users (User_id),
     constraint operations_subcategories_Subcategory_id_fk
         foreign key (Subcategory_id) references subcategories (Subcategory_id)
-);
+)CHARACTER SET utf8 COLLATE utf8_polish_ci;;
 
 create index Budget_id
     on operations (Budget_id);
@@ -97,10 +97,11 @@ create index User_id
 create index Budget_id
     on users (Budget_id);
 
+SET NAMES utf8mb4;
 
---Begin of IMPORTS
 
-INSERT INTO budget_db.categories (Category_id, Category_name, Category_description, Category_color) VALUES (0, 'UNCATEGORIZED', 'Operations without category', 'is-white');
+
+
 INSERT INTO budget_db.categories (Category_id, Category_name, Category_description, Category_color) VALUES (1, 'food', 'Szamka', 'is-warning');
 INSERT INTO budget_db.categories (Category_id, Category_name, Category_description, Category_color) VALUES (2, 'entertainment', 'Kino i inne', 'is-black');
 INSERT INTO budget_db.categories (Category_id, Category_name, Category_description, Category_color) VALUES (3, 'transport', 'Paliwko', 'is-link');
@@ -109,8 +110,10 @@ INSERT INTO budget_db.categories (Category_id, Category_name, Category_descripti
 INSERT INTO budget_db.categories (Category_id, Category_name, Category_description, Category_color) VALUES (7, 'inwestitions', 'Akcje, waluta', 'is-info');
 INSERT INTO budget_db.categories (Category_id, Category_name, Category_description, Category_color) VALUES (8, 'work', 'Salary, extra pays, rewards', 'is-success');
 
+INSERT INTO budget_db.categories (Category_id, Category_name, Category_description, Category_color) VALUES (0, 'UNCATEGORIZED', 'Operations without category', 'is-white');
+UPDATE budget_db.categories t SET t.Category_id = 0 WHERE t.Category_name='UNCATEGORIZED';
 
-INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcategory_description, Category_id) VALUES (0, 'uncategorized', 'uncategorized operation', 0);
+
 INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcategory_description, Category_id) VALUES (1, 'FastFood', 'McD', 1);
 INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcategory_description, Category_id) VALUES (2, 'Regional cousine', 'Schabowe', 1);
 INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcategory_description, Category_id) VALUES (3, 'Kino', 'Wyjścia do kina', 2);
@@ -133,8 +136,11 @@ INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcatego
 INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcategory_description, Category_id) VALUES (22, 'Bonus', 'Bonus for work', 8);
 INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcategory_description, Category_id) VALUES (23, 'Car', 'Fuel to car', 3);
 
+INSERT INTO budget_db.subcategories (Subcategory_id, Subcategory_name, Subcategory_description, Category_id) VALUES (0, 'uncategorized', 'uncategorized operation', 0);
+UPDATE budget_db.subcategories t SET t.Subcategory_id = 0 WHERE t.Subcategory_name='uncategorized';
 
-INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budget_encrypted_password) VALUES (0, 'placeholder', 'placeholder', 'placeholder');
+
+
 INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budget_encrypted_password) VALUES (1, 'Budget1', 'testetstet', '');
 INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budget_encrypted_password) VALUES (2, 'Home budget', 'Testowy budźet domowy', '');
 INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budget_encrypted_password) VALUES (4, 'API_budget', 'Budget created by FastAPI, and edited by it', '');
@@ -154,8 +160,10 @@ INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budge
 INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budget_encrypted_password) VALUES (21, 'najsbudget', 'name=password', 'gAAAAABlTp02GEgkoK-SN3a17TqKy4Z8uw0ZX67NaUVE-50dRI_ziV8PLXXkOBv6jau2eZi6TgDYjAdMtEgVqI7wi68pfpBpMQ==');
 INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budget_encrypted_password) VALUES (22, 'thirdbudget', 'name=pass', 'gAAAAABlO7VsjYsmbv1NVAZPQDPVEdDeg92GvwS198YCBSt63s3-Bu2Lnw8d3T3NfQ8BXO0SIDTXETmLYt5mcS99_OB7xCjppA==');
 
+INSERT INTO budget_db.budgets (Budget_id, Budget_name, Budget_description, Budget_encrypted_password) VALUES (0, 'placeholder', 'placeholder', 'placeholder');
+UPDATE budget_db.budgets t SET t.budget_id=0 WHERE t.Budget_name='placeholder';
 
-INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (0, 'Admin', 'ADMIN', 'budgetadmin@admin', '$2b$12$VPc.CtMlmht/EBtv7qysM.ceSXmFYNnHYi/PiCik1VYwox4QMuuxC', 0);
+
 INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (1, 'Jacek', 'Myjkowski', 'jacek', 'jacek', 2);
 INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (4, 'string', 'string', 'jmyjkowski@gmail.com', 'string', 1);
 INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (6, 'string', 'string', 'mail@mail.com', '$2b$12$SidBUAtv4YBD6svR5hCTcuOrO8RSoi1Nn1DtZF28MEvUJFU0VzUge', 0);
@@ -187,6 +195,10 @@ INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_
 INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (35, 'Przyjaciel', 'Przyjacielski', 'przyjacielski@gmail.com', '$2b$12$XY0F8kdO3XHoQEW8O8KMeOSx3oi7QrkQGjdkycti7ifRFlyqjw82q', 21);
 INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (36, 'Znajomy', 'Znajomski', 'znajomski@gmail.com', '$2b$12$GmYd0OGWaIHXYahPNDuMZOaBF2hU07DMeaoDtsvgwcUsoCFLfEyFG', 0);
 INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (56, 'Testowy', 'Użytkownik', 'testowyuzytkownik@gmail.com', '$2b$12$uPVgArvilH8yB/CjzWNyL.8IZ5OasEYf9DOOn/HIDmkJAaaifhoNu', 0);
+
+INSERT INTO budget_db.users (User_id, User_name, User_surname, User_email, User_hashed_password, Budget_id) VALUES (0, 'Admin', 'ADMIN', 'budgetadmin@admin', '$2b$12$VPc.CtMlmht/EBtv7qysM.ceSXmFYNnHYi/PiCik1VYwox4QMuuxC', 0);
+UPDATE budget_db.users t SET t.User_id=0 WHERE t.User_email='budgetadmin@admin';
+
 
 
 INSERT INTO budget_db.reminders (Reminder_id, Reminder_name, Reminder_description, Reminder_date, Budget_id, Reminder_value, Reminder_repeat_quantity, Reminder_repeat_scale, Subcategory_id) VALUES (2, 'Woda', 'Zapłacić za wodę', '2024-05-15', 21, -134.87, 3, 'months', 10);
