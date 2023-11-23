@@ -57,7 +57,10 @@ async def get_user_by_email(
     _db: Session = _fastapi.Depends(get_db),
     user: _schemas.User = _fastapi.Depends(_services.get_current_user),
 ):
-    return await _services.get_user_by_email(email=email,_db=_db)
+    user_by_email=await _services.get_user_by_email(email=email,_db=_db)
+    if(user_by_email):
+        return user_by_email
+    raise _fastapi.HTTPException(status_code=404, detail="This email doesnt exist in database")
 
 
 @app.put("/api/users/update", tags=["user"])

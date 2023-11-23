@@ -104,7 +104,7 @@ const BudgetDetails = ({budgetId, token})=>{
                         <div class="content">
                             <ul>
                                 {loaded&&budgetUsers ? (budgetUsers.map((user) => (
-                                        <li>{user.user_name} {user.user_surname}</li>
+                                        <li key={user.user_id}>{user.user_name} {user.user_surname}</li>
                                     ))):(
                                         <p>{t("budget_members_failure")}</p>
                                     )}

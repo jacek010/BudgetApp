@@ -230,10 +230,11 @@ const OperationModal = ({ active, handleModal, token, id, setErrorMessage }) => 
                             <div className="control">
                                 <select className="input" required value={categoryId} onChange={(e) => changeActiveCategory(e.target.value)}>
                                     {categories ?(categories.map(category => (
+                                        category.category_id ?(
                                         <option key={category.category_id} value={category.category_id}>
                                             <span className="title">{t("categories_"+category.category_name)}</span>
                                         </option>
-                                    ))):(
+                                    ):null))):(
                                         <progress class="progress is-large" max="100"></progress>
                                     )}
                                 </select>
