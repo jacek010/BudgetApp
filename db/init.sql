@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS budget_db CHARACTER SET utf8 COLLATE utf8_polish_ci;;
+CREATE DATABASE IF NOT EXISTS budget_db CHARACTER SET utf8 COLLATE utf8_polish_ci;
 USE budget_db;
 
 create table budgets
