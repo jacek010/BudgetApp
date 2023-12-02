@@ -499,17 +499,30 @@ async def delete_category(category_id:int, _db:Session):
 async def delete_subcategory(subcategory_id:int, _db:Session):
     operations_to_update = _db.query(_models.Operation).filter(_models.Operation.subcategory_id==subcategory_id)
     
+    reminders_to_update = _db.query(_models.Reminder).filter(_models.Reminder.subcategory_id==subcategory_id)
+    
     for operation in operations_to_update:
         await uncategorize_operation(operation.operation_id, _db)
+        
+    for reminder in reminders_to_update:
+        await uncategorize_reminder(reminder.reminder_id, _db)
     
     subcategory_to_delete = _db.query(_models.Subcategory).filter(_models.Subcategory.subcategory_id==subcategory_id).first()  
     _db.delete(subcategory_to_delete)
     _db.commit()
 
 async def uncategorize_operation(operation_id:int, _db:Session):
-    operation_to_update = _db.query(_models.Operation).filter(_models.Operation.operation_id==operation_id)
+    operation_to_update = _db.query(_models.Operation).filter(_models.Operation.operation_id==operation_id).first()
     
-    operation_to_update.update({ _models.Operation.subcategory_id: 0 })
+    operation_to_update.subcategory_id=0
     
     _db.commit()
     _db.refresh(operation_to_update)
+    
+async def uncategorize_reminder(reminder_id:int, _db:Session):
+    reminder_to_update = _db.query(_models.Reminder).filter(_models.Reminder.reminder_id==reminder_id).first()
+    
+    reminder_to_update.subcategory_id=0
+    
+    _db.commit()
+    _db.refresh(reminder_to_update)
