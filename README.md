@@ -3,6 +3,7 @@
 ## This is web application to help manage home budget
 
 ## Made as engineer project on Wroclaw University of Technology
+https://github.com/jacek010/BudgetApp.git
 
 ### Frontend
 - ReactJS
