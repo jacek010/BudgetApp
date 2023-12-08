@@ -272,7 +272,7 @@ async def done_reminder(
     user: _schemas.User = _fastapi.Depends(_services.get_current_user),
     _db: Session = _fastapi.Depends(get_db),
 ):
-    reminder = await _services.set_reminder_to_next_cycle(reminder_id, user, _db)
+    reminder = await _services.get_reminder(reminder_id=reminder_id, user=user, _db=_db)
     operation_from_reminder = _schemas.OperationCreate(
         operation_name=reminder.reminder_name,
         operation_value=reminder.reminder_value,
@@ -280,6 +280,8 @@ async def done_reminder(
         subcategory_id=reminder.subcategory_id
     )
     await _services.create_operation(user=user, _db=_db, operation=operation_from_reminder)
+    
+    await _services.set_reminder_to_next_cycle(reminder_id, user, _db)
     
     return {"message": "Succesfully done"}
 
