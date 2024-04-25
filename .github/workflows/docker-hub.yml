@@ -21,11 +21,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker images
-        run: docker compose build;
+        run: |
+         docker compose build 
          docker compose config --images
       - name: Push Docker images
-        run: images=$(docker compose config --images);
-         for image in $images; do;
-         docker push $image;
-         done;
+        run: |
+         images=$(docker compose config --images)
+         for image in $images 
+         do
+         docker push $image
+         done
          
