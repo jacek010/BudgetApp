@@ -1,0 +1,156 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: db
+spec:
+ ports:
+ - port: 3306
+ selector:
+    app: db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: db
+spec:
+ replicas: 1
+ selector:
+    matchLabels:
+      app: db
+ template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: mysql:latest
+        command: ["--default-authentication-plugin=caching_sha2_password"]
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: rootPassword
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: dbName
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: dbUser
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: dbPassword
+        volumeMounts:
+        - name: db-init
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: db-init
+        configMap:
+          name: db-init-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: db-init-config
+data:
+ init.sql: |
+    # Your SQL initialization script here
+---
+apiVersion: v1
+kind: Secret
+metadata:
+ name: db-secrets
+type: Opaque
+data:
+ rootPassword: "cm9vdF9wYXNzd29yZA=="
+ dbName: "YnVkZ2V0X2Ri"
+ dbUser: "YWRtaW4="
+ dbPassword: "YWRtaW4="
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: backend
+spec:
+ ports:
+ - port: 8000
+ selector:
+    app: backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: backend
+spec:
+ replicas: 1
+ selector:
+    matchLabels:
+      app: backend
+ template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: python:latest
+        workingDir: /backend/
+        command: ["bash", "-c", "pip install -r requirements.txt && uvicorn main:app --host 0.0.0.0 --port 8000"]
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: dbUrl
+        volumeMounts:
+        - name: backend-volume
+          mountPath: /backend
+      volumes:
+      - name: backend-volume
+        hostPath:
+          path: ./backend:/backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: frontend
+spec:
+ type: LoadBalancer
+ ports:
+ - port: 3000
+ selector:
+    app: frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: frontend
+spec:
+ replicas: 1
+ selector:
+    matchLabels:
+      app: frontend
+ template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: node:latest
+        workingDir: /app/
+        command: ["bash", "-c", "npm install && npm run build && npm start"]
+        volumeMounts:
+        - name: frontend-volume
+          mountPath: /app
+      volumes:
+      - name: frontend-volume
+        hostPath:
+          path: ./frontend:/app

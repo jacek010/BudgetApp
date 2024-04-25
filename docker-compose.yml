@@ -1,38 +1,24 @@
-version: '3.8'
+version: '3.x'
 services:
   db:
-    image: jacek010/mysql:latest
-    ports:
-      - "3306:3306"
-    command: --default-authentication-plugin=caching_sha2_password
+    build: 
+      context: .
+      dockerfile: Dockerfile.db
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - "./db/init.sql:/docker-entrypoint-initdb.d/init.sql"
+    image: ${REPO}-db:${VERSION_TAG}
   backend:
-    image: jacek010/python:latest
-    working_dir: /backend/
-    command: bash -c "pip install -r requirements.txt && uvicorn main:app --host 0.0.0.0 --port 8000"
-    volumes:
-      - ./backend:/backend
+    build: 
+      context: .
+      dockerfile: Dockerfile.backend
+    image: ${REPO}-backend:${VERSION_TAG}
     ports:
       - "8000:8000"
     depends_on:
       - db
-    environment:
-      DATABASE_URL: mysql://${DB_USER}:${DB_PASSWORD}@db:3306/${DB_NAME}
   frontend:
-    image: jacek010/node:latest
-    working_dir: /app/
-    command: bash -c "npm install && npm run build && npm start"
-    volumes:
-      - ./frontend:/app
-    ports:
-      - "3000:3000"
+    build: 
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: ${REPO}-frontend:${VERSION_TAG}
     depends_on:
       - backend
-      
