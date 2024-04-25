@@ -21,6 +21,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker images
-        run: docker-compose build
+        run: docker compose build
       - name: Push Docker images
-        run: docker-compose push
+        run: scripth.sh
